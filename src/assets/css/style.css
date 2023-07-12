@@ -1,0 +1,147 @@
+/*
+ * Google Fonts
+ * ------------------------------------
+ */
+/* ***** BODY ***** */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;1,300&display=swap");
+
+/* ***** DOGSITTER & DOGOWNER NAME ***** */
+@import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+/* font-family: 'Courgette', cursive; */
+
+/*
+ * Button Custom
+ * ------------------------------------
+ */
+
+/*
+ * Reset
+ * ------------------------------------
+ */
+body {
+	background-color: #ffffff;
+	color: #1f2124;
+	font-family: "Ubuntu", sans-serif;
+}
+
+/*
+ * Helpers
+ * ------------------------------------
+ */
+.minHeight-100vh {
+	min-height: 100vh;
+}
+.overflow-hidden {
+	overflow: hidden;
+}
+.schwa {
+	display: inline-block;
+	rotate: 180deg;
+	vertical-align: sub;
+}
+
+/*
+ * Header
+ * ------------------------------------
+ */
+.myNavbar {
+	background-color: #fff;
+	color: #404347;
+	border-bottom: 1px solid #cfd7de;
+	font-weight: 300;
+}
+.myNavbar a {
+	color: #404347;
+}
+.myNavbar .container > a:first-of-type {
+	font-weight: 500;
+}
+
+/*
+ * Login
+ * ------------------------------------
+ */
+.login {
+	position: relative;
+}
+.login > .wrapperImg {
+	position: absolute;
+	top: 100px;
+	left: 0;
+	transform: rotate(330deg);
+	transform-origin: left top;
+	z-index: 0;
+}
+.login > .wrapperImg > div {
+	position: relative;
+}
+.login .wrapperImg img {
+	position: absolute;
+	max-width: 300px;
+	height: auto;
+	z-index: 1;
+	opacity: 0.15;
+}
+.login .wrapperImg img:nth-of-type(1) {
+	top: 0;
+	left: 0;
+}
+.login .wrapperImg img:nth-of-type(2) {
+	top: 120px;
+	left: 300px;
+}
+.login .wrapperImg img:nth-of-type(3) {
+	top: 420px;
+	left: 0;
+}
+.login .wrapperImg img:nth-of-type(4) {
+	top: 640px;
+	left: 300px;
+}
+.login > div:nth-of-type(2),
+.login > div:nth-of-type(3) {
+	z-index: 100;
+}
+
+/*
+ * DogSitters
+ * ------------------------------------
+ */
+.dogsitter-card {
+	background-color: #f4f5f6;
+}
+.dogsitter-card img {
+	border-radius: 50%;
+	height: 70px;
+}
+.dogsitter-detail h1 {
+	font-family: "Courgette", cursive;
+}
+.dogsitter-detail .service > div > div {
+	background-color: #f4f5f6;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+.dogsitter-detail .service div:last-of-type p {
+	margin-bottom: 0;
+}
+
+/*
+ * DogOwners
+ * ------------------------------------
+ */
+.address > div > div {
+	background-color: #f4f5f6;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+.dog-card {
+	background-color: #f4f5f6;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	font-weight: 400;
+}
