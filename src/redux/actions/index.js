@@ -1,4 +1,5 @@
 export const GET_USER_LOGGED = "GET_USER_LOGGED";
+export const USER_LOGOUT = "USER_LOGOUT";
 export const GET_COMMENTI = "GET_COMMENTI";
 export const GET_PREFERITI = "GET_PREFERITI";
 export const POST_ADDRESS = "POST_ADDRESS";
@@ -11,6 +12,15 @@ export const GET_DOGSITTERS = "GET_DOGSITTERS";
 export const GET_DOGSITTERS_ERROR = "GET_DOGSITTERS_ERROR";
 export const GET_DOGSITTERS_LOADING_ON = "GET_DOGSITTERS_LOADING_ON";
 export const GET_DOGSITTERS_LOADING_OFF = "GET_DOGSITTERS_LOADING_OFF";
+
+/* ***** LOGOUT MY PROFILE ***** */
+export const logoutAction = () => {
+	localStorage.removeItem("token");
+
+	return async (dispatch) => {
+		dispatch({ type: USER_LOGOUT, payload: "" });
+	};
+};
 
 /* ***** READ MY PROFILE ***** */
 export const getUserLoggedAction = () => {

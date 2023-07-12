@@ -37,7 +37,8 @@ body {
 .schwa {
 	display: inline-block;
 	rotate: 180deg;
-	vertical-align: sub;
+	position: relative;
+	top: 3.5px;
 }
 
 /*
