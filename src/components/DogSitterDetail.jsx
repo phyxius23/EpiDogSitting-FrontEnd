@@ -1,6 +1,7 @@
 import { Col, Image, Row } from "react-bootstrap";
 import imgUser from "../assets/images/imgUser.jpg";
 import { useSelector } from "react-redux";
+import ContactForm from "./ContactForm";
 
 const DogSitterDetail = () => {
 	//const dispatch = useDispatch();
@@ -51,6 +52,13 @@ const DogSitterDetail = () => {
 									</div>
 								))}
 							</div>
+						</Col>
+					</Row>
+
+					{/* CONTACT FORM */}
+					<Row>
+						<Col>
+							<ContactForm />
 						</Col>
 					</Row>
 				</>
