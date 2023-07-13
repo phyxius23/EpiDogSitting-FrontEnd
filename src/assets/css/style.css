@@ -41,6 +41,10 @@ body {
 	top: 3.5px;
 }
 
+.radioForm {
+	display: block;
+}
+
 /*
  * Header
  * ------------------------------------

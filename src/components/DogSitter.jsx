@@ -2,14 +2,16 @@ import { Col, Container, Row } from "react-bootstrap";
 import DogSitterList from "./DogSitterList";
 import DogSitterDetail from "./DogSitterDetail";
 import { useDispatch } from "react-redux";
-import { getDogSittersAction } from "../redux/actions";
+import { getSearchAction } from "../redux/actions";
+
 import { useEffect } from "react";
 
 const DogSitter = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getDogSittersAction());
+		dispatch(getSearchAction(""));
+		// dispatch(getDogSittersAction()); //=> questa è la action che usavo precedentemente
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

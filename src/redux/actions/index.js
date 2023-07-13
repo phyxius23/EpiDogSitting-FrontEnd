@@ -154,14 +154,96 @@ export const getPreferitiAction = () => {
  */
 export const selectDogSittersAction = (dogSitter) => ({ type: SELECT_DOGSITTER, payload: dogSitter });
 
+// metodo implementato da un vecchio progetto
+// export const getSearchAction = (query) => {
+//   return async (dispatch, getState) => {
+//     try {
+//       const response = await fetch(endpointSearch + query);
+
+//       if (response.ok) {
+//         let { data } = await response.json();
+//         dispatch({type: GET_SEARCH, payload: data});
+//       } else {
+//         alert("Error fetching results");
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// }
+//  metodo implementato da un vecchio progetto con le modifiche necessarie al funzionamento in questo attuale
+export const getSearchAction = (query) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/dogsitters";
+	// const url = "http://localhost:5001/dogsitters?page=&size=&sortBy=&postalCode=&name=&offeringType=";
+
+	return async (dispatch, getState) => {
+		try {
+			dispatch({
+				type: GET_DOGSITTERS_LOADING_ON,
+			});
+
+			let resp = await fetch(
+				url +
+					"?page=" +
+					(query.page ? query.page : "") +
+					"&size=" +
+					(query.size ? query.size : "") +
+					"&sortBy=" +
+					(query.sortBy ? query.sortBy : "") +
+					"&postalCode=" +
+					(query.postalCode ? query.postalCode : "") +
+					"&name=" +
+					(query.name ? query.name : "") +
+					"&offeringType=" +
+					(query.offeringType ? query.offeringType : ""),
+				{
+					method: "GET",
+					headers: {
+						"Content-type": "application/json; charset=UTF-8",
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (resp.ok) {
+				let fetchedDogSitters = await resp.json();
+
+				dispatch({ type: GET_DOGSITTERS, payload: fetchedDogSitters });
+			} else {
+				alert("Error fetching results");
+
+				dispatch({
+					type: GET_DOGSITTERS_ERROR,
+					payload: "Errore nel reperimento dei dati",
+				});
+			}
+		} catch (error) {
+			console.log(error);
+
+			dispatch({
+				type: GET_DOGSITTERS_ERROR,
+				payload: "Errore nel reperimento dei dati: " + error.message,
+			});
+		} finally {
+			// siamo anche in grado di gestire loading states leggibili e attivabili/disattivabili in tutta l'applicazione dall'unico posto che è questo action creator
+			dispatch({
+				type: GET_DOGSITTERS_LOADING_OFF,
+			});
+		}
+	};
+};
+
 export const getDogSittersAction = () => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/dogsitters";
+	// const url = "http://localhost:5001/dogsitters?page=&size=&sortBy=&postalCode=&name=&offeringType=";
 
 	// grazie a redux-thunk, che è un middleware GIA' INTEGRATO nel nostro flow con configureStore() di redux toolkit
 	// possiamo creare degl iaction creators che ritornino non solo una singola action (oggetto JS), ma anche una funzione!
 	return async (dispatch, getState) => {
 		// getState() è una funzione che ritorna lo stato globale
+		// console.log(url + "?page" + query.page + "?size" + query.size + "?sortBy" + query.sortBy + "?postalCode" + query.postalCode + "?name" + query.name + "?offeringType" + query.offeringType);
 		try {
 			dispatch({
 				type: GET_DOGSITTERS_LOADING_ON,

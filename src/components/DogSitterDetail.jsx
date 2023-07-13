@@ -1,6 +1,6 @@
 import { Col, Image, Row } from "react-bootstrap";
 import imgUser from "../assets/images/imgUser.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const DogSitterDetail = () => {
 	//const dispatch = useDispatch();
@@ -21,7 +21,9 @@ const DogSitterDetail = () => {
 							<h1 className="display-3" style={{ lineHeight: 1, marginTop: "-6px" }}>
 								{dogSitterSelected.name}
 							</h1>
-							<p>Città, CAP</p>
+							<p>
+								{dogSitterSelected.address.city}, {dogSitterSelected.address.postalCode}
+							</p>
 						</Col>
 					</Row>
 					{/* DESCRIZIONE */}
@@ -42,18 +44,12 @@ const DogSitterDetail = () => {
 						<Col sm={12}>
 							<div className="mb-0">
 								<h4 className="font-weight-bold">SERVIZI:</h4>
-								<div className="d-flex justify-content-between mb-2">
-									<p>Servizio</p>
-									<p>$ 0.00</p>
-								</div>
-								<div className="d-flex justify-content-between mb-2">
-									<p>Servizio</p>
-									<p>$ 0.00</p>
-								</div>
-								<div className="d-flex justify-content-between mb-2">
-									<p>Servizio</p>
-									<p>$ 0.00</p>
-								</div>
+								{dogSitterSelected.offerings.map((service) => (
+									<div className="d-flex justify-content-between mb-2" key={service.id}>
+										<p>{service.type}</p>
+										<p>€ {service.price}</p>
+									</div>
+								))}
 							</div>
 						</Col>
 					</Row>
