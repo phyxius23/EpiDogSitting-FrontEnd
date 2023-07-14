@@ -15,7 +15,6 @@ const ModalContactForm = ({ show, handleCloseModalContactForm }) => {
 		emailjs.sendForm("service_kqd9047", "template_gkui3xl", form.current, "vq0Jgo8VpKRRf3TJX").then(
 			(result) => {
 				console.log(result.text);
-				// form.current.reset();
 			},
 			(error) => {
 				console.log(error.text);
@@ -45,7 +44,6 @@ const ModalContactForm = ({ show, handleCloseModalContactForm }) => {
 							<Form.Label>Example textarea</Form.Label>
 							<Form.Control as="textarea" rows={3} name="message" />
 						</Form.Group>
-						{/* <Button type="submit">Invia</Button> */}
 					</Modal.Body>
 					<Modal.Footer>
 						<Button variant="secondary" onClick={handleCloseModalContactForm}>

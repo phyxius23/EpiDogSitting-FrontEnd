@@ -2,13 +2,10 @@ import { Button, Col, Image, Row } from "react-bootstrap";
 import imgUser from "../assets/images/imgUser.jpg";
 import { useSelector } from "react-redux";
 import ContactForm from "./ModalContactForm";
-import { IoPaperPlaneSharp } from "react-icons/io5";
 import { useState } from "react";
 
 const DogSitterDetail = () => {
-	//const dispatch = useDispatch();
 	const dogSitterSelected = useSelector((state) => state.dogSitterSelected.content);
-	//const userName = useSelector((state) => state.user.content);
 	const hasFetchError = useSelector((state) => state.dogSitters.hasError);
 
 	// modal
@@ -34,6 +31,7 @@ const DogSitterDetail = () => {
 							</p>
 						</Col>
 					</Row>
+
 					{/* DESCRIZIONE */}
 					<Row className="mt-3 description">
 						<Col sm={12}>
@@ -66,7 +64,6 @@ const DogSitterDetail = () => {
 					<Row>
 						<Col className="d-flex justify-content-end">
 							<Button onClick={handleShowModalContactForm} variant="secondary" className="mt-3">
-								{/** rounded-pill mt-0 my-2 ml-auto */}
 								<span>Contatta il dogsitter</span>
 							</Button>
 							<ContactForm show={show} handleCloseModalContactForm={handleCloseModalContactForm} />
@@ -80,8 +77,6 @@ const DogSitterDetail = () => {
 					</Col>
 				</Row>
 			)}
-
-			{/* <Button variant="primary">ADD TO CART</Button> */}
 		</div>
 	);
 };
