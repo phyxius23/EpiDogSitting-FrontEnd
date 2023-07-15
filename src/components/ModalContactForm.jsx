@@ -4,7 +4,7 @@ import emailjs from "@emailjs/browser";
 import { useSelector } from "react-redux";
 import { IoPaperPlaneSharp } from "react-icons/io5";
 
-const ModalContactForm = ({ show, handleCloseModalContactForm }) => {
+const ModalContactForm = ({ show, handleCloseModal }) => {
 	const dogSitterSelected = useSelector((state) => state.dogSitterSelected.content);
 
 	const form = useRef();
@@ -24,7 +24,7 @@ const ModalContactForm = ({ show, handleCloseModalContactForm }) => {
 
 	return (
 		<>
-			<Modal show={show} onHide={handleCloseModalContactForm}>
+			<Modal show={show} onHide={handleCloseModal}>
 				<Modal.Header closeButton>
 					<Modal.Title>
 						<h3>Contatta {dogSitterSelected.name}</h3>
@@ -46,10 +46,10 @@ const ModalContactForm = ({ show, handleCloseModalContactForm }) => {
 						</Form.Group>
 					</Modal.Body>
 					<Modal.Footer>
-						<Button variant="secondary" onClick={handleCloseModalContactForm}>
+						<Button variant="secondary" onClick={handleCloseModal}>
 							Chiudi
 						</Button>
-						<Button type="submit" variant="primary" onClick={handleCloseModalContactForm}>
+						<Button type="submit" variant="primary" onClick={handleCloseModal}>
 							<span>Invia</span>
 							<IoPaperPlaneSharp />
 						</Button>

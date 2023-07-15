@@ -10,8 +10,8 @@ const DogSitterDetail = () => {
 
 	// modal
 	const [show, setShow] = useState(false);
-	const handleCloseModalContactForm = () => setShow(false);
-	const handleShowModalContactForm = () => setShow(true);
+	const handleCloseModal = () => setShow(false);
+	const handleShowModal = () => setShow(true);
 
 	return (
 		<div className="mt-3 mb-4 mb-lg-0 dogsitter-detail">
@@ -63,10 +63,10 @@ const DogSitterDetail = () => {
 					{/* CONTACT FORM */}
 					<Row>
 						<Col className="d-flex justify-content-end">
-							<Button onClick={handleShowModalContactForm} variant="secondary" className="mt-3">
+							<Button onClick={handleShowModal} variant="secondary" className="mt-3">
 								<span>Contatta il dogsitter</span>
 							</Button>
-							<ContactForm show={show} handleCloseModalContactForm={handleCloseModalContactForm} />
+							<ContactForm show={show} handleCloseModal={handleCloseModal} />
 						</Col>
 					</Row>
 				</>

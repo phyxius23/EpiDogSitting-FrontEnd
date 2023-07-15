@@ -1,4 +1,4 @@
-import { GET_COMMENTI, GET_PREFERITI, GET_USER_LOGGED, POST_ADDRESS, POST_DOG, USER_LOGOUT } from "../actions";
+import { GET_COMMENTI, GET_PREFERITI, GET_USER_LOGGED, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE } from "../actions";
 
 const initialState = {
 	user: "",
@@ -35,7 +35,14 @@ const myProfileReducer = (state = initialState, action) => {
 					dogs: [...state.user.dogs, action.payload],
 				},
 			};
-
+		case POST_IMAGE:
+			return {
+				...state,
+				user: {
+					...state.user,
+					image: action.payload,
+				},
+			};
 		case GET_COMMENTI:
 			return {
 				...state,

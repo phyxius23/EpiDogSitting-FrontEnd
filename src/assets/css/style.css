@@ -45,6 +45,27 @@ body {
 	display: block;
 }
 
+.imgProfile {
+	max-width: 225px;
+	aspect-ratio: 1/1;
+	object-fit: cover;
+}
+
+.iconAddImgProfile {
+	background-color: #efefef;
+	border-radius: 50%;
+	aspect-ratio: 1/1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	cursor: pointer;
+}
+.iconAddImgProfile svg {
+	width: 50%;
+	height: 50%;
+}
 /*
  * Header
  * ------------------------------------

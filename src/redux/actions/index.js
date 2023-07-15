@@ -4,8 +4,7 @@ export const GET_COMMENTI = "GET_COMMENTI";
 export const GET_PREFERITI = "GET_PREFERITI";
 export const POST_ADDRESS = "POST_ADDRESS";
 export const POST_DOG = "POST_DOG";
-
-//export const POST_DOGOWNER = "POST_DOGOWNER";
+export const POST_IMAGE = "POST_IMAGE";
 
 export const SELECT_DOGSITTER = "SELECT_DOGSITTER";
 export const GET_DOGSITTERS = "GET_DOGSITTERS";
@@ -13,7 +12,7 @@ export const GET_DOGSITTERS_ERROR = "GET_DOGSITTERS_ERROR";
 export const GET_DOGSITTERS_LOADING_ON = "GET_DOGSITTERS_LOADING_ON";
 export const GET_DOGSITTERS_LOADING_OFF = "GET_DOGSITTERS_LOADING_OFF";
 
-/* ***** LOGOUT MY PROFILE ***** */
+/* ***** LOGOUT MY PROFILE => FUNZIONANTE ***** */
 export const logoutAction = () => {
 	localStorage.removeItem("token");
 
@@ -22,7 +21,7 @@ export const logoutAction = () => {
 	};
 };
 
-/* ***** READ MY PROFILE ***** */
+/* ***** READ MY PROFILE => FUNZIONANTE ***** */
 export const getUserLoggedAction = () => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/me";
@@ -50,7 +49,7 @@ export const getUserLoggedAction = () => {
 	};
 };
 
-/* ***** SAVE ADDRESS ***** */
+/* ***** SAVE ADDRESS => FUNZIONANTE ***** */
 export const postAddressAction = (userId, addressData) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
@@ -76,7 +75,7 @@ export const postAddressAction = (userId, addressData) => {
 	};
 };
 
-/* ***** SAVE DOG ***** */
+/* ***** SAVE DOG => FUNZIONANTE ***** */
 export const postDogAction = (userId, dogData) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
@@ -101,6 +100,33 @@ export const postDogAction = (userId, dogData) => {
 		}
 	};
 };
+
+/* ***** SAVE IMAGE ***** => FUNZIONANTE */
+export const postImageAction = (userId, imageData) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/api/dogowner/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + userId + "/image/upload", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: imageData,
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				dispatch({ type: POST_IMAGE, payload: data });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+// *******************************************************
 
 /* ***** ***** */
 export const getCommentiAction = (url) => {
