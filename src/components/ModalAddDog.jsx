@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postDogAction } from "../redux/actions";
+import { IoPaperPlaneSharp } from "react-icons/io5";
 
-const AddDogForm = () => {
+const ModalAddDog = ({ show, handleCloseModal }) => {
 	const dogowner = useSelector((state) => state.myProfile.user);
 	const dispatch = useDispatch();
 
@@ -17,6 +18,7 @@ const AddDogForm = () => {
 
 	const sendDog = (e) => {
 		e.preventDefault();
+
 		dispatch(postDogAction(dogowner.id, dog));
 
 		setDog({
@@ -29,9 +31,14 @@ const AddDogForm = () => {
 	};
 
 	return (
-		<Row className="justify-content-center mt-3 dog">
-			<Col sm={6}>
-				<Form className=" rounded form-register" onSubmit={sendDog}>
+		<Modal show={show} onHide={handleCloseModal}>
+			<Modal.Header closeButton>
+				<Modal.Title>
+					<h3>Dettagli dell'animale domestico</h3>
+				</Modal.Title>
+			</Modal.Header>
+			<Form className=" rounded form-register" onSubmit={sendDog}>
+				<Modal.Body>
 					<Form.Group className="mb-3">
 						<Form.Label>Nome</Form.Label>
 						<Form.Control required type="text" className="" placeholder="Inserisci il nome" value={dog.name} onChange={(e) => setDog({ ...dog, name: e.target.value })} />
@@ -48,25 +55,27 @@ const AddDogForm = () => {
 						<Form.Label>Peso</Form.Label>
 						<Form.Control required type="text" className="" placeholder="Inserisci il peso" value={dog.weight} onChange={(e) => setDog({ ...dog, weight: e.target.value })} />
 					</Form.Group>
-					<Form.Group className="mb-3">
-						<FloatingLabel controlId="floatingTextarea" label="Comments" className="mb-3">
-							<Form.Control required as="textarea" placeholder="Inserisci una descrizione" value={dog.description} onChange={(e) => setDog({ ...dog, description: e.target.value })} />
-						</FloatingLabel>
-					</Form.Group>
-
-					<div className="d-flex justify-content-end">
-						<Button
-							className="border-0"
-							style={{
-								backgroundColor: "#452103",
-							}}
-							type="submit">
-							Salva indirizzo
-						</Button>
-					</div>
-				</Form>
-			</Col>
-		</Row>
+					{/* <Form.Group className="mb-3">
+							<FloatingLabel controlId="floatingTextarea" label="Comments" className="mb-3">
+								<Form.Control required as="textarea" placeholder="Inserisci una descrizione" value={dog.description} onChange={(e) => setDog({ ...dog, description: e.target.value })} />
+							</FloatingLabel>
+						</Form.Group> */}
+					{/* <Form.Group className="mb-3">
+							<Form.Label>Nome</Form.Label>
+							<Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} multiple />
+						</Form.Group> */}
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleCloseModal}>
+						Chiudi
+					</Button>
+					<Button type="submit" variant="primary" onClick={handleCloseModal}>
+						<span>Invia</span>
+						<IoPaperPlaneSharp />
+					</Button>
+				</Modal.Footer>
+			</Form>
+		</Modal>
 	);
 };
-export default AddDogForm;
+export default ModalAddDog;

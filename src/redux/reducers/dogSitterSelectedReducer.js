@@ -1,4 +1,4 @@
-import { SELECT_DOGSITTER } from "../actions";
+import { SELECT_DOGSITTER, DOGSITTER_SELECTED_LOGOUT } from "../actions";
 
 const initialState = {
 	content: null,
@@ -11,7 +11,8 @@ const dogSitterSelectedReducer = (state = initialState, action) => {
 				...state,
 				content: action.payload,
 			};
-
+		case DOGSITTER_SELECTED_LOGOUT:
+			return initialState;
 		default:
 			return state;
 	}

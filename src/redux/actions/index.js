@@ -1,13 +1,23 @@
 export const GET_USER_LOGGED = "GET_USER_LOGGED";
 export const USER_LOGOUT = "USER_LOGOUT";
+
 export const GET_COMMENTI = "GET_COMMENTI";
-export const GET_PREFERITI = "GET_PREFERITI";
+
+export const GET_FAVORITES = "GET_FAVORITES";
+export const ADD_FAVORITE = "ADD_FAVORITE";
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
+export const FAVORITE_LOGOUT = "FAVORITE_LOGOUT";
+
 export const POST_ADDRESS = "POST_ADDRESS";
 export const POST_DOG = "POST_DOG";
 export const POST_IMAGE = "POST_IMAGE";
+export const POST_IMAGE_DOG = "POST_IMAGE_DOG";
 
 export const SELECT_DOGSITTER = "SELECT_DOGSITTER";
+export const DOGSITTER_SELECTED_LOGOUT = "DOGSITTER_SELECTED_LOGOUT";
+
 export const GET_DOGSITTERS = "GET_DOGSITTERS";
+export const DOGSITTERS_LOGOUT = "DOGSITTERS_LOGOUT";
 export const GET_DOGSITTERS_ERROR = "GET_DOGSITTERS_ERROR";
 export const GET_DOGSITTERS_LOADING_ON = "GET_DOGSITTERS_LOADING_ON";
 export const GET_DOGSITTERS_LOADING_OFF = "GET_DOGSITTERS_LOADING_OFF";
@@ -17,7 +27,10 @@ export const logoutAction = () => {
 	localStorage.removeItem("token");
 
 	return async (dispatch) => {
-		dispatch({ type: USER_LOGOUT, payload: "" });
+		dispatch({ type: USER_LOGOUT });
+		dispatch({ type: FAVORITE_LOGOUT });
+		dispatch({ type: DOGSITTER_SELECTED_LOGOUT });
+		dispatch({ type: DOGSITTERS_LOGOUT });
 	};
 };
 
@@ -36,8 +49,6 @@ export const getUserLoggedAction = () => {
 			});
 			if (resp.ok) {
 				let data = await resp.json();
-
-				console.log(data);
 
 				dispatch({ type: GET_USER_LOGGED, payload: data });
 			} else {
@@ -76,13 +87,13 @@ export const postAddressAction = (userId, addressData) => {
 };
 
 /* ***** SAVE DOG => FUNZIONANTE ***** */
-export const postDogAction = (userId, dogData) => {
+export const postDogAction = (dogId, dogData) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
 
 	return async (dispatch, getState) => {
 		try {
-			let resp = await fetch(url + userId + "/dog", {
+			let resp = await fetch(url + dogId + "/dog", {
 				method: "POST",
 				headers: {
 					"Content-type": "application/json; charset=UTF-8",
@@ -101,8 +112,8 @@ export const postDogAction = (userId, dogData) => {
 	};
 };
 
-/* ***** SAVE IMAGE ***** => FUNZIONANTE */
-export const postImageAction = (userId, imageData) => {
+/* ***** SAVE IMAGE PROFILE ***** => FUNZIONANTE */
+export const postImageProfileAction = (userId, imageData) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
 
@@ -119,6 +130,111 @@ export const postImageAction = (userId, imageData) => {
 				let data = await resp.json();
 
 				dispatch({ type: POST_IMAGE, payload: data });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+/* ***** SAVE IMAGE DOG ***** => FUNZIONANTE */
+export const postImageDogAction = (dogId, imageData) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/image/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogId + "/image/upload", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: imageData,
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				dispatch({
+					type: POST_IMAGE_DOG,
+					payload: {
+						response: data,
+						id: dogId,
+					},
+				});
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+/* ***** READ ALL FAVORITES ***** => FUNZIONANTE */
+export const getFavoritesAction = (dogownerId) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/favorites/dogowner/";
+
+	return async (dispatch) => {
+		try {
+			let resp = await fetch(url + dogownerId, {
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				dispatch({ type: GET_FAVORITES, payload: data });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+/* ***** ADD FAVORITE ***** => FUNZIONANTE */
+export const addFavoriteAction = (dogownerId, dogsitterId) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/favorites/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogownerId + "/" + dogsitterId, {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				dispatch({ type: ADD_FAVORITE, payload: data });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+/* ***** REMOVE FAVORITE ***** => FUNZIONANTE */
+export const removeFavoriteAction = (favoriteId) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/favorites/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + favoriteId, {
+				method: "DELETE",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				//let data = await resp.json();
+
+				dispatch({ type: REMOVE_FAVORITE, payload: favoriteId });
 			}
 		} catch (error) {
 			console.log(error);
@@ -145,29 +261,6 @@ export const getCommentiAction = (url) => {
 				let commenti = await resp.json();
 
 				dispatch({ type: GET_COMMENTI, payload: commenti });
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-};
-
-/* ***** ***** */
-export const getPreferitiAction = () => {
-	const token = localStorage.getItem("token");
-	const url = "http://localhost:3001/users/me/preferiti";
-	return async (dispatch) => {
-		try {
-			let resp = await fetch(url, {
-				headers: {
-					"Content-type": "application/json; charset=UTF-8",
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			if (resp.ok) {
-				let data = await resp.json();
-
-				dispatch({ type: GET_PREFERITI, payload: data });
 			}
 		} catch (error) {
 			console.log(error);
@@ -263,13 +356,8 @@ export const getSearchAction = (query) => {
 export const getDogSittersAction = () => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/dogsitters";
-	// const url = "http://localhost:5001/dogsitters?page=&size=&sortBy=&postalCode=&name=&offeringType=";
 
-	// grazie a redux-thunk, che è un middleware GIA' INTEGRATO nel nostro flow con configureStore() di redux toolkit
-	// possiamo creare degl iaction creators che ritornino non solo una singola action (oggetto JS), ma anche una funzione!
 	return async (dispatch, getState) => {
-		// getState() è una funzione che ritorna lo stato globale
-		// console.log(url + "?page" + query.page + "?size" + query.size + "?sortBy" + query.sortBy + "?postalCode" + query.postalCode + "?name" + query.name + "?offeringType" + query.offeringType);
 		try {
 			dispatch({
 				type: GET_DOGSITTERS_LOADING_ON,
@@ -281,15 +369,11 @@ export const getDogSittersAction = () => {
 					Authorization: `Bearer ${token}`,
 				},
 			});
-			//let resp = await fetch("http://localhost:5001/dogsitters");
-			// console.log(resp);
 			if (resp.ok) {
 				let fetchedDogSitters = await resp.json();
-				// a questo punto avremo aspettato la risoluzione della fetch e potremo fare il dispatch di un'action con fetchedBooks come payload!
 				dispatch({ type: GET_DOGSITTERS, payload: fetchedDogSitters });
 			} else {
 				console.log("error");
-				// siamo anche in grado di gestire errori nel caso in cui si presentino con un azione con type diverso
 				dispatch({
 					type: GET_DOGSITTERS_ERROR,
 					payload: "Errore nel reperimento dei dati",
@@ -303,7 +387,6 @@ export const getDogSittersAction = () => {
 				payload: "Errore nel reperimento dei dati: " + error.message,
 			});
 		} finally {
-			// siamo anche in grado di gestire loading states leggibili e attivabili/disattivabili in tutta l'applicazione dall'unico posto che è questo action creator
 			dispatch({
 				type: GET_DOGSITTERS_LOADING_OFF,
 			});

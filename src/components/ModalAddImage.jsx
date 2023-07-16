@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { postImageProfileAction } from "../redux/actions";
+import { useDispatch } from "react-redux";
+import { postImageDogAction } from "../redux/actions";
 
-const ModalAddImageProfile = ({ show, handleCloseModal }) => {
-	const dogowner = useSelector((state) => state.myProfile.user);
+const ModalAddImage = ({ show, handleCloseModal, dog }) => {
 	const dispatch = useDispatch();
 	const [image, setImage] = useState("");
 
@@ -14,8 +13,7 @@ const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 		const formData = new FormData();
 		formData.append("multipartFile", image);
 
-		dispatch(postImageProfileAction(dogowner.id, formData));
-		console.log(formData);
+		dispatch(postImageDogAction(dog.id, formData));
 	};
 
 	return (
@@ -24,12 +22,12 @@ const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 			<Modal show={show} onHide={handleCloseModal}>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						<h3>Aggiungi immagine profilo</h3> {/*dogSitterSelected.name*/}
+						<h3>Aggiungi una foto di {dog.name}</h3>
 					</Modal.Title>
 				</Modal.Header>
 				<Form className="rounded form-register" onSubmit={sendImage}>
 					<Modal.Body>
-						<Form.Group className="mb-3">
+						<Form.Group className="my-3">
 							<Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} multiple />
 						</Form.Group>
 					</Modal.Body>
@@ -51,4 +49,4 @@ const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 		</>
 	);
 };
-export default ModalAddImageProfile;
+export default ModalAddImage;

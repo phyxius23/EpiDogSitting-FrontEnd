@@ -4,6 +4,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import myProfileReducer from "../reducers/myProfileReducer.js";
 import dogSitterSelectedReducer from "../reducers/dogSitterSelectedReducer.js";
 import dogSittersReducer from "../reducers/dogSittersReducer.js";
+import myFavoritesReducer from "../reducers/myFavoritesReducer.js";
 // import { encryptTransform } from "redux-persist-transform-encrypt";
 
 const persistConfig = {
@@ -18,6 +19,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
 	myProfile: myProfileReducer,
+	favorites: myFavoritesReducer,
 	dogSitterSelected: dogSitterSelectedReducer,
 	dogSitters: dogSittersReducer,
 });

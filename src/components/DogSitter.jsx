@@ -1,18 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Col, Container, Row } from "react-bootstrap";
 import DogSitterList from "./DogSitterList";
 import DogSitterDetail from "./DogSitterDetail";
-import { useDispatch } from "react-redux";
-import { getSearchAction } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getFavoritesAction, getSearchAction } from "../redux/actions";
 
 import { useEffect } from "react";
 
 const DogSitter = () => {
 	const dispatch = useDispatch();
+	const dogowner = useSelector((state) => state.myProfile.user);
+
+	const dogsitter = useSelector((state) => state.dogSitterSelected.content);
+	const hasFetchError = useSelector((state) => state.dogSitters.hasError);
 
 	useEffect(() => {
 		dispatch(getSearchAction(""));
-		// dispatch(getDogSittersAction()); //=> questa è la action che usavo precedentemente
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		dispatch(getFavoritesAction(dogowner.id));
 	}, []);
 
 	return (
@@ -22,7 +26,15 @@ const DogSitter = () => {
 					<DogSitterList />
 				</Col>
 				<Col xs={7}>
-					<DogSitterDetail />
+					{dogsitter ? (
+						<DogSitterDetail />
+					) : (
+						<Row>
+							<Col sm={12}>
+								<h3 className="display-6">{!hasFetchError ? "👈Seleziona un DogSitter!" : "Qualcosa è andato storto"}</h3>
+							</Col>
+						</Row>
+					)}
 				</Col>
 				{/* <Col xs={3}>
 					<MyProfile />

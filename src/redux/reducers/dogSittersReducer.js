@@ -1,4 +1,4 @@
-import { GET_DOGSITTERS, GET_DOGSITTERS_ERROR, GET_DOGSITTERS_LOADING_OFF, GET_DOGSITTERS_LOADING_ON } from "../actions";
+import { GET_DOGSITTERS, GET_DOGSITTERS_ERROR, GET_DOGSITTERS_LOADING_OFF, GET_DOGSITTERS_LOADING_ON, DOGSITTERS_LOGOUT } from "../actions";
 
 const initialState = {
 	content: [],
@@ -30,6 +30,8 @@ const dogSittersReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 			};
+		case DOGSITTERS_LOGOUT:
+			return initialState;
 		default:
 			return state;
 	}

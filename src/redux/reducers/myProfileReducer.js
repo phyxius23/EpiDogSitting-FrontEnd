@@ -1,10 +1,9 @@
-import { GET_COMMENTI, GET_PREFERITI, GET_USER_LOGGED, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE } from "../actions";
+import { GET_USER_LOGGED, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE, POST_IMAGE_DOG } from "../actions";
 
 const initialState = {
 	user: "",
-	commenti: [],
-	preferiti: [],
-	// address: "",
+	// commenti: [],
+	// preferiti: [],
 };
 
 const myProfileReducer = (state = initialState, action) => {
@@ -15,10 +14,7 @@ const myProfileReducer = (state = initialState, action) => {
 				user: action.payload,
 			};
 		case USER_LOGOUT:
-			return {
-				...state,
-				user: "",
-			};
+			return initialState;
 		case POST_ADDRESS:
 			return {
 				...state,
@@ -43,16 +39,32 @@ const myProfileReducer = (state = initialState, action) => {
 					image: action.payload,
 				},
 			};
-		case GET_COMMENTI:
+		case POST_IMAGE_DOG:
 			return {
 				...state,
-				commenti: action.payload,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.map((dog) => {
+						if (dog.id === action.payload.id) {
+							return {
+								...dog,
+								image: action.payload.response,
+							};
+						}
+						return { ...dog };
+					}),
+				},
 			};
-		case GET_PREFERITI:
-			return {
-				...state,
-				preferiti: action.payload,
-			};
+		// case GET_COMMENTI:
+		// 	return {
+		// 		...state,
+		// 		commenti: action.payload,
+		// 	};
+		// case GET_PREFERITI:
+		// 	return {
+		// 		...state,
+		// 		preferiti: action.payload,
+		// 	};
 		default:
 			return state;
 	}

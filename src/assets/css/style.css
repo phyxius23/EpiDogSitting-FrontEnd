@@ -18,6 +18,9 @@
  * Reset
  * ------------------------------------
  */
+* {
+	box-sizing: border-box;
+}
 body {
 	background-color: #ffffff;
 	color: #1f2124;
@@ -39,6 +42,9 @@ body {
 	rotate: 180deg;
 	position: relative;
 	top: 3.5px;
+}
+.cursor-pointer {
+	cursor: pointer;
 }
 
 .radioForm {
@@ -153,6 +159,17 @@ body {
 .dogsitter-detail .service div:last-of-type p {
 	margin-bottom: 0;
 }
+.favoriteIcon {
+	position: absolute;
+	top: 0;
+	right: 30px;
+	/* height: 50%;
+	width: 50%; */
+}
+.favoriteIcon svg {
+	width: 30px;
+	height: 30px;
+}
 
 /*
  * DogOwners
@@ -165,9 +182,37 @@ body {
 	font-size: 1.25rem;
 	font-weight: 300;
 }
+
+/* ***** DOG-CARD ***** */
 .dog-card {
+	overflow: hidden;
+	max-height: 225px;
+}
+.dog-card > div {
 	background-color: #f4f5f6;
-	padding: 1rem 2rem;
 	border-radius: 15px;
 	font-weight: 400;
+}
+.dog-card__img {
+	display: flex;
+	justify-content: center;
+	align-items: center; /* sotto una certa width deve essere impostato a stretch */
+	text-align: center;
+	overflow: hidden;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+}
+.dog-card__img img {
+	object-fit: contain;
+}
+.dog-card__svg {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+.dog-card__svg svg {
+	height: auto;
+	width: 20%;
 }
