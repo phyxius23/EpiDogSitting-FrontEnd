@@ -7,6 +7,11 @@ const DogCard = ({ dog }) => {
 	const [show, setShow] = useState(false);
 	const handleCloseModal = () => setShow(false);
 	const handleShowModal = () => setShow(true);
+	// const handleCloseModalDelayed = () => {
+	// 	setTimeout(() => {
+	// 		setShow(false);
+	// 	}, 2000);
+	// };
 
 	return (
 		<Col xs={6} className="dog-card mb-4">
@@ -28,7 +33,7 @@ const DogCard = ({ dog }) => {
 				<Col xs={6} className="dog-card__txt p-3">
 					<p className="mb-0">{dog.name}</p>
 					<p className="mb-0">{dog.breed}</p>
-					<p className="mb-0">{dog.age} Anno/i</p>
+					<p className="mb-0">{dog.age} Anni</p>
 					<p className="mb-0">{dog.weight} kg.</p>
 				</Col>
 			</div>

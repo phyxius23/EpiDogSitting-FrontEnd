@@ -12,7 +12,7 @@ const DogSitter = () => {
 	const dogowner = useSelector((state) => state.myProfile.user);
 
 	const dogsitter = useSelector((state) => state.dogSitterSelected.content);
-	const hasFetchError = useSelector((state) => state.dogSitters.hasError);
+	// const hasFetchError = useSelector((state) => state.dogSitters.hasError);
 
 	useEffect(() => {
 		dispatch(getSearchAction(""));
@@ -31,12 +31,12 @@ const DogSitter = () => {
 					) : (
 						<Row>
 							<Col sm={12}>
-								<h3 className="display-6">{!hasFetchError ? "Seleziona un DogSitter!" : "Qualcosa è andato storto"}</h3>
+								<h3 className="display-6">Seleziona un DogSitter!</h3>
 							</Col>
 						</Row>
 					)}
 				</Col>
-				{/* <Col xs={3}>
+				{/* <Col xs={2}>
 					<MyProfile />
 				</Col> */}
 			</Row>

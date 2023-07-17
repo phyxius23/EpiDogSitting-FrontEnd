@@ -7,12 +7,10 @@
 
 /* ***** DOGSITTER & DOGOWNER NAME ***** */
 @import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
-/* font-family: 'Courgette', cursive; */
 
-/*
- * Button Custom
- * ------------------------------------
- */
+h1 {
+	font-family: "Courgette", cursive;
+}
 
 /*
  * Reset
@@ -26,6 +24,11 @@ body {
 	color: #1f2124;
 	font-family: "Ubuntu", sans-serif;
 }
+
+/*
+ * Button Custom
+ * ------------------------------------
+ */
 
 /*
  * Helpers
@@ -46,17 +49,14 @@ body {
 .cursor-pointer {
 	cursor: pointer;
 }
-
 .radioForm {
 	display: block;
 }
-
 .imgProfile {
 	max-width: 225px;
 	aspect-ratio: 1/1;
 	object-fit: cover;
 }
-
 .iconAddImgProfile {
 	background-color: #efefef;
 	border-radius: 50%;
@@ -182,18 +182,38 @@ body {
 	position: absolute;
 	top: 0;
 	right: 30px;
-	/* height: 50%;
-	width: 50%; */
 }
 .favoriteIcon svg {
 	width: 30px;
 	height: 30px;
 }
 
+/* ***** Calendar ***** */
+.react-calendar {
+	width: auto;
+	max-width: 100%;
+	background: white;
+	border: none;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.125em;
+	padding: 1rem 2rem;
+	background-color: #f4f5f6;
+	border-radius: 15px;
+}
+.react-calendar__tile--now {
+	background-color: #ddd;
+}
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus,
+.react-calendar__tile--active {
+	background-color: #404347;
+}
+
 /*
  * DogOwners
  * ------------------------------------
  */
+/* ***** Address ***** */
 .address > div > div {
 	background-color: #f4f5f6;
 	padding: 1rem 2rem;
@@ -202,7 +222,7 @@ body {
 	font-weight: 300;
 }
 
-/* ***** DOG-CARD ***** */
+/* ***** Dog-Card ***** */
 .dog-card {
 	overflow: hidden;
 	max-height: 225px;

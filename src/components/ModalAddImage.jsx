@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { postImageDogAction } from "../redux/actions";
+import { ToastContainer, toast } from "react-toastify";
 
 const ModalAddImage = ({ show, handleCloseModal, dog }) => {
 	const dispatch = useDispatch();
@@ -13,13 +14,14 @@ const ModalAddImage = ({ show, handleCloseModal, dog }) => {
 		const formData = new FormData();
 		formData.append("multipartFile", image);
 
-		dispatch(postImageDogAction(dog.id, formData));
+		dispatch(postImageDogAction(dog.id, toast, formData));
 	};
 
 	return (
 		<>
 			{/* FORM ADD IMAGE */}
 			<Modal show={show} onHide={handleCloseModal}>
+				<ToastContainer />
 				<Modal.Header closeButton>
 					<Modal.Title>
 						<h3>Aggiungi una foto di {dog.name}</h3>

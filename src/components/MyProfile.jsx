@@ -1,4 +1,4 @@
-import { Alert, Col, Container, Image, Row, Spinner } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import AddAddressForm from "./AddAddressForm";
 import AddDogForm from "./AddDogForm";
 import { useSelector } from "react-redux";
@@ -10,12 +10,14 @@ import SectionAddress from "./AddressSection";
 import DogSection from "./DogSection";
 import AddressSection from "./AddressSection";
 
+import { ToastContainer } from "react-toastify";
+
 const MyProfile = () => {
 	const dogowner = useSelector((state) => state.myProfile.user);
 
-	const isLoading = useSelector((state) => state.myProfile.isLoading);
-	const hasError = useSelector((state) => state.myProfile.hasError);
-	const errorMessage = useSelector((state) => state.myProfile.errorMessage);
+	// const isLoading = useSelector((state) => state.myProfile.isLoading);
+	// const hasError = useSelector((state) => state.myProfile.hasError);
+	// const errorMessage = useSelector((state) => state.myProfile.errorMessage);
 
 	const [show, setShow] = useState(false);
 	const handleCloseModal = () => setShow(false);
@@ -24,20 +26,21 @@ const MyProfile = () => {
 	return (
 		<Container className="mt-3 mb-4 mb-lg-0 my-profile">
 			{/* IMAGE, NOME, CITTÀ CAP */}
-			{isLoading && !hasError && (
+			{/* {isLoading && !hasError && (
 				<div className="isLoading">
 					<Spinner animation="border" role="status">
 						<span className="visually-hidden">Loading...</span>
 					</Spinner>
 					<span className="d-block">Loading...</span>
 				</div>
-			)}
+			)} */}
 
 			{/* ALERT IN CASO DI MANCATO REPERIMENTO DEI DATI */}
-			{hasError && !isLoading && <Alert variant="danger">{errorMessage ? errorMessage : "Errore nel reperire i dati"}</Alert>}
+			{/* {hasError && !isLoading && <Alert variant="danger">{errorMessage ? errorMessage : "Errore nel reperire i dati"}</Alert>} */}
 
 			{dogowner && (
 				<>
+					<ToastContainer />
 					<Row className="justify-content-center align-items-center intro">
 						{/* FORM ADD IMAGE */}
 

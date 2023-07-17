@@ -25,9 +25,9 @@ const DogSection = ({ dogs }) => {
 									<IoAddOutline />
 									<p>Aggiungi un animale domestico</p>
 								</div>
+								<ModalAddDog show={show} handleCloseModal={handleCloseModal} />
 							</div>
 						</Col>
-						<ModalAddDog show={show} handleCloseModal={handleCloseModal} />
 					</Row>
 				</div>
 			</Col>

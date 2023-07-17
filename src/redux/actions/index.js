@@ -38,7 +38,7 @@ export const logoutAction = () => {
 };
 
 /* ***** READ MY PROFILE => FUNZIONANTE ***** */
-export const getUserLoggedAction = () => {
+export const getUserLoggedAction = (toast) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/me";
 
@@ -54,6 +54,10 @@ export const getUserLoggedAction = () => {
 			});
 			if (resp.ok) {
 				let data = await resp.json();
+
+				setTimeout(() => {
+					toast.success("Utente loggato", { autoClose: 1000 });
+				}, 2000);
 
 				dispatch({ type: GET_USER_LOGGED, payload: data });
 				dispatch({ type: GET_USER_LOADING_OFF });
@@ -98,7 +102,7 @@ export const postAddressAction = (userId, addressData) => {
 };
 
 /* ***** SAVE DOG => FUNZIONANTE ***** */
-export const postDogAction = (dogId, dogData) => {
+export const postDogAction = (dogId, toast, dogData) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
 
@@ -115,10 +119,13 @@ export const postDogAction = (dogId, dogData) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
+				toast.success("Animale salvato", { autoClose: 1000 });
+
 				dispatch({ type: POST_DOG, payload: data });
 			}
 		} catch (error) {
 			console.log(error);
+			toast.error(error, { autoClose: 1000 });
 		}
 	};
 };
@@ -149,7 +156,7 @@ export const postImageProfileAction = (userId, imageData) => {
 };
 
 /* ***** SAVE IMAGE DOG ***** => FUNZIONANTE */
-export const postImageDogAction = (dogId, imageData) => {
+export const postImageDogAction = (dogId, toast, imageData) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/image/";
 
@@ -165,6 +172,8 @@ export const postImageDogAction = (dogId, imageData) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
+				toast.success("Immagine salvata", { autoClose: 1000 });
+
 				dispatch({
 					type: POST_IMAGE_DOG,
 					payload: {
@@ -174,7 +183,8 @@ export const postImageDogAction = (dogId, imageData) => {
 				});
 			}
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
+			toast.error("Salvataggio non eseguito", { autoClose: 1000 });
 		}
 	};
 };

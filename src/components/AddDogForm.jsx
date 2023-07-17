@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postDogAction } from "../redux/actions";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddDogForm = () => {
 	const dogowner = useSelector((state) => state.myProfile.user);
@@ -17,7 +18,7 @@ const AddDogForm = () => {
 
 	const sendDog = (e) => {
 		e.preventDefault();
-		dispatch(postDogAction(dogowner.id, dog));
+		dispatch(postDogAction(dogowner.id, toast, dog));
 
 		setDog({
 			name: "",
@@ -30,6 +31,7 @@ const AddDogForm = () => {
 
 	return (
 		<Row className="justify-content-center mt-3 dog">
+			<ToastContainer />
 			<Col sm={6}>
 				<Form className=" rounded form-register" onSubmit={sendDog}>
 					<Form.Group className="mb-3">
@@ -61,7 +63,7 @@ const AddDogForm = () => {
 								backgroundColor: "#452103",
 							}}
 							type="submit">
-							Salva indirizzo
+							Salva animale
 						</Button>
 					</div>
 				</Form>

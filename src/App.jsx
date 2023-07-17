@@ -1,4 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-calendar/dist/Calendar.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./assets/css/style.css";
 import "./App.css";
 import { Container } from "react-bootstrap";

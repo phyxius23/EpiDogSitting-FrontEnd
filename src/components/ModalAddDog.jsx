@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postDogAction } from "../redux/actions";
 import { IoPaperPlaneSharp } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const ModalAddDog = ({ show, handleCloseModal }) => {
 	const dogowner = useSelector((state) => state.myProfile.user);
@@ -19,7 +20,7 @@ const ModalAddDog = ({ show, handleCloseModal }) => {
 	const sendDog = (e) => {
 		e.preventDefault();
 
-		dispatch(postDogAction(dogowner.id, dog));
+		dispatch(postDogAction(dogowner.id, toast, dog));
 
 		setDog({
 			name: "",

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserLoggedAction } from "../redux/actions";
 import zampa from "../assets/images/zampa.png";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
 	const [login, setLogin] = useState({
@@ -11,8 +12,8 @@ const Login = () => {
 		password: "",
 	});
 
-	const [error, setError] = useState(null);
-	const [errorMessage, setErrorMessage] = useState("");
+	// const [error, setError] = useState(null);
+	// const [errorMessage, setErrorMessage] = useState("");
 
 	const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ const Login = () => {
 					"Content-Type": "application/json",
 				},
 			});
+
 			if (response.ok) {
 				const data = await response.json();
 
@@ -38,18 +40,25 @@ const Login = () => {
 					email: "",
 					password: "",
 				});
-				dispatch(getUserLoggedAction());
-				navigate("/my-profile");
+				dispatch(getUserLoggedAction(toast));
+
+				toast.success("Credenziali corrette", { autoClose: 1000 });
+
+				setTimeout(() => {
+					navigate("/my-profile");
+				}, 2000);
 			} else {
-				throw new Error("Credenziali non valide! Ritenta!");
+				toast.error("Credenziali errate", { autoClose: 1000 });
 			}
 		} catch (error) {
-			setError(error);
-			setErrorMessage(error.message);
+			// setError(error);
+			// setErrorMessage(error.message);
+			toast.error(error.message, { autoClose: 1000 });
 		}
 	};
 	return (
 		<Container>
+			<ToastContainer />
 			<Row className="justify-content-center my-5 login">
 				<div className="wrapperImg">
 					<div>
@@ -96,11 +105,11 @@ const Login = () => {
 								Entra
 							</Button>
 						</div>
-						{error && (
+						{/* {error && (
 							<Alert className="mt-3" variant="danger" onClose={() => setError(null)} dismissible>
 								{errorMessage}
 							</Alert>
-						)}
+						)} */}
 					</Form>
 				</Col>
 			</Row>
