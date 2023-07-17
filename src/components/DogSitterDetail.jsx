@@ -1,23 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Col, Image, Row } from "react-bootstrap";
 import imgUser from "../assets/images/imgUser.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import ContactForm from "./ModalContactForm";
 import { useEffect, useState } from "react";
-import { IoHeartOutline } from "react-icons/io5";
-import { IoHeartSharp } from "react-icons/io5";
+import { IoHeartOutline, IoHeartSharp, IoAddCircleOutline, IoAddCircle } from "react-icons/io5";
+// import {  } from "react-icons/io5";
+// import {  } from "react-icons/io5";
 import { addFavoriteAction, removeFavoriteAction } from "../redux/actions";
 
 const DogSitterDetail = () => {
 	const dogsitter = useSelector((state) => state.dogSitterSelected.content);
-	const dogOwner = useSelector((state) => state.myProfile.user);
+	const dogowner = useSelector((state) => state.myProfile.user);
 	const favorites = useSelector((state) => state.favorites.content);
-	const hasFetchError = useSelector((state) => state.dogSitters.hasError);
 	const dispatch = useDispatch();
 
 	// modal
 	const [show, setShow] = useState(false);
 	const handleCloseModal = () => setShow(false);
 	const handleShowModal = () => setShow(true);
+
+	// add service
+	const [serviceSelected, setServiceSelected] = useState("");
+	// const handleCloseModal = () => setShow(false);
+	// const handleShowModal = () => setShow(true);
 
 	const [isFavorite, setIsFavorite] = useState(false);
 
@@ -32,7 +38,7 @@ const DogSitterDetail = () => {
 	const saveFavorite = () => {
 		setIsFavorite(true);
 
-		dispatch(addFavoriteAction(dogOwner.id, dogsitter.id));
+		dispatch(addFavoriteAction(dogowner.id, dogsitter.id));
 	};
 
 	const removeFavorite = () => {
@@ -93,12 +99,38 @@ const DogSitterDetail = () => {
 							<Col sm={12}>
 								<div className="mb-0">
 									<h4 className="font-weight-bold">SERVIZI:</h4>
-									{dogsitter.offerings.map((service) => (
-										<div className="d-flex justify-content-between mb-2" key={service.id}>
-											<p>{service.type}</p>
-											<p>€ {service.price}</p>
-										</div>
-									))}
+									{dogsitter.offerings.map(
+										(service) =>
+											service.type === serviceSelected ? (
+												<div className="d-flex justify-content-between mb-2 service-row selected" key={service.id}>
+													<p>{service.type}</p>
+													<div className="d-flex align-items-center">
+														<p className="me-2">€ {service.price}</p>
+														<IoAddCircle className="cursor-pointer" onClick={() => setServiceSelected("")} />
+													</div>
+												</div>
+											) : (
+												<div className="d-flex justify-content-between mb-2 service-row" key={service.id}>
+													<p>{service.type}</p>
+													<div className="d-flex align-items-center">
+														<p className="me-2">€ {service.price}</p>
+														<IoAddCircleOutline className="cursor-pointer" onClick={() => setServiceSelected(service.type)} />
+													</div>
+												</div>
+											)
+
+										// <div className="d-flex justify-content-between mb-2" key={service.id}>
+										// 	<p>{service.type}</p>
+										// 	<div className="d-flex align-items-center">
+										// 		<p className="me-2">€ {service.price}</p>
+										// 		{serviceSelected ? (
+										// 			<IoAddCircle className="cursor-pointer" onClick={() => setServiceSelected("")} />
+										// 		) : (
+										// 			<IoAddCircleOutline className="cursor-pointer" onClick={() => setServiceSelected(service.id)} />
+										// 		)}
+										// 	</div>
+										// </div>
+									)}
 								</div>
 							</Col>
 						</Row>
@@ -109,7 +141,7 @@ const DogSitterDetail = () => {
 								<Button onClick={handleShowModal} variant="secondary" className="mt-3">
 									<span>Contatta il dogsitter</span>
 								</Button>
-								<ContactForm show={show} handleCloseModal={handleCloseModal} />
+								<ContactForm show={show} handleCloseModal={handleCloseModal} service={serviceSelected} />
 							</Col>
 						</Row>
 					</>

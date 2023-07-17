@@ -4,8 +4,9 @@ import emailjs from "@emailjs/browser";
 import { useSelector } from "react-redux";
 import { IoPaperPlaneSharp } from "react-icons/io5";
 
-const ModalContactForm = ({ show, handleCloseModal }) => {
-	const dogSitterSelected = useSelector((state) => state.dogSitterSelected.content);
+const ModalContactForm = ({ show, handleCloseModal, service }) => {
+	const dogsitter = useSelector((state) => state.dogSitterSelected.content);
+	const dogowner = useSelector((state) => state.myProfile.user);
 
 	const form = useRef();
 
@@ -27,18 +28,22 @@ const ModalContactForm = ({ show, handleCloseModal }) => {
 			<Modal show={show} onHide={handleCloseModal}>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						<h3>Contatta {dogSitterSelected.name}</h3>
+						<h3>Contatta {dogsitter.name}</h3>
 					</Modal.Title>
 				</Modal.Header>
 				<Form ref={form} onSubmit={sendEmail}>
 					<Modal.Body>
 						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 							<Form.Label>Nome</Form.Label>
-							<Form.Control type="text" name="user_name" />
+							<Form.Control type="text" name="user_name" value={dogowner.name} />
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 							<Form.Label>Email</Form.Label>
-							<Form.Control type="email" placeholder="name@example.com" name="user_email" />
+							<Form.Control type="email" placeholder="name@example.com" name="user_email" value={dogowner.email} />
+						</Form.Group>
+						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+							<Form.Label>Servizio</Form.Label>
+							<Form.Control type="text" placeholder="Servizio" name="dogsitter_service" value={service} />
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 							<Form.Label>Example textarea</Form.Label>

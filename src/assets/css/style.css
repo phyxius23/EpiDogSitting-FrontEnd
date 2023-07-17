@@ -134,6 +134,17 @@ body {
 .login > div:nth-of-type(3) {
 	z-index: 100;
 }
+.my-profile {
+	position: relative;
+}
+.isLoading {
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
 /*
  * DogSitters
@@ -158,6 +169,14 @@ body {
 }
 .dogsitter-detail .service div:last-of-type p {
 	margin-bottom: 0;
+}
+.dogsitter-detail .service .service-row {
+	padding: 0.5rem 1rem;
+	border-radius: 15px;
+}
+.dogsitter-detail .service .selected {
+	background-color: #404347;
+	color: #fff;
 }
 .favoriteIcon {
 	position: absolute;

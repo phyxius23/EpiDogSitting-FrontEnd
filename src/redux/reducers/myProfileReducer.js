@@ -1,9 +1,10 @@
-import { GET_USER_LOGGED, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE, POST_IMAGE_DOG } from "../actions";
+import { GET_USER_LOGGED, GET_USER_ERROR, GET_USER_LOADING_ON, GET_USER_LOADING_OFF, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE, POST_IMAGE_DOG } from "../actions";
 
 const initialState = {
 	user: "",
-	// commenti: [],
-	// preferiti: [],
+	isLoading: false,
+	hasError: false,
+	errorMessage: "",
 };
 
 const myProfileReducer = (state = initialState, action) => {
@@ -13,6 +14,23 @@ const myProfileReducer = (state = initialState, action) => {
 				...state,
 				user: action.payload,
 			};
+		case GET_USER_ERROR:
+			return {
+				...state,
+				hasError: true,
+				errorMessage: action.payload,
+			};
+		case GET_USER_LOADING_ON:
+			return {
+				...state,
+				isLoading: true,
+			};
+		case GET_USER_LOADING_OFF:
+			return {
+				...state,
+				isLoading: false,
+			};
+
 		case USER_LOGOUT:
 			return initialState;
 		case POST_ADDRESS:

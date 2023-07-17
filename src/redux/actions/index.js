@@ -1,4 +1,7 @@
 export const GET_USER_LOGGED = "GET_USER_LOGGED";
+export const GET_USER_LOADING_ON = "GET_USER_LOADING_ON";
+export const GET_USER_LOADING_OFF = "GET_USER_LOADING_OFF";
+export const GET_USER_ERROR = "GET_USER_ERROR";
 export const USER_LOGOUT = "USER_LOGOUT";
 
 export const GET_COMMENTI = "GET_COMMENTI";
@@ -41,6 +44,8 @@ export const getUserLoggedAction = () => {
 
 	return async (dispatch) => {
 		try {
+			dispatch({ type: GET_USER_LOADING_ON });
+
 			let resp = await fetch(url, {
 				headers: {
 					"Content-type": "application/json; charset=UTF-8",
@@ -51,11 +56,17 @@ export const getUserLoggedAction = () => {
 				let data = await resp.json();
 
 				dispatch({ type: GET_USER_LOGGED, payload: data });
+				dispatch({ type: GET_USER_LOADING_OFF });
 			} else {
 				console.log("errore");
+
+				dispatch({ type: GET_USER_ERROR, payload: "Errore nel reperimento dei dati" });
 			}
 		} catch (error) {
 			console.log(error);
+
+			dispatch({ type: GET_USER_ERROR, payload: "Errore nel reperimento dei dati" });
+			dispatch({ type: GET_USER_LOADING_OFF });
 		}
 	};
 };
@@ -273,23 +284,6 @@ export const getCommentiAction = (url) => {
  */
 export const selectDogSittersAction = (dogSitter) => ({ type: SELECT_DOGSITTER, payload: dogSitter });
 
-// metodo implementato da un vecchio progetto
-// export const getSearchAction = (query) => {
-//   return async (dispatch, getState) => {
-//     try {
-//       const response = await fetch(endpointSearch + query);
-
-//       if (response.ok) {
-//         let { data } = await response.json();
-//         dispatch({type: GET_SEARCH, payload: data});
-//       } else {
-//         alert("Error fetching results");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// }
 //  metodo implementato da un vecchio progetto con le modifiche necessarie al funzionamento in questo attuale
 export const getSearchAction = (query) => {
 	const token = localStorage.getItem("token");

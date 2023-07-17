@@ -31,7 +31,7 @@ const DogSitter = () => {
 					) : (
 						<Row>
 							<Col sm={12}>
-								<h3 className="display-6">{!hasFetchError ? "👈Seleziona un DogSitter!" : "Qualcosa è andato storto"}</h3>
+								<h3 className="display-6">{!hasFetchError ? "Seleziona un DogSitter!" : "Qualcosa è andato storto"}</h3>
 							</Col>
 						</Row>
 					)}
