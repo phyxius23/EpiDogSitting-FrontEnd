@@ -37,7 +37,7 @@ const MyNavbar = () => {
 								{myProfile.user.name != null ? (
 									<>
 										<Link to={`/my-profile`} className={`nav-link`}>
-											Benvenut<span className="schwa">e</span>, {myProfile.user.name}
+											Benvenut&#601;, {myProfile.user.name}
 										</Link>
 										<Link to={`/`} className={`nav-link`} onClick={logout}>
 											Logout

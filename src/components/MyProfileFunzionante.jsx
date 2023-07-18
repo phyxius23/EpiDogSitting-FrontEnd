@@ -12,7 +12,7 @@ import AddressSection from "./AddressSection";
 
 import { ToastContainer } from "react-toastify";
 
-const MyProfile = () => {
+const MyProfileFunzionante = () => {
 	const dogowner = useSelector((state) => state.myProfile.user);
 
 	// const isLoading = useSelector((state) => state.myProfile.isLoading);
@@ -41,14 +41,14 @@ const MyProfile = () => {
 			{dogowner && (
 				<>
 					<ToastContainer />
-					<Row className="justify-content-center align-items-center">
+					<Row className="justify-content-center align-items-center intro">
 						{/* FORM ADD IMAGE */}
 
 						{/* SPINNER IN ATTESA DEL REPERIMENTO DEI DATI */}
-						<Col xs={4} className="d-flex justify-content-center">
+						<Col sm={3} className="d-flex justify-content-center">
 							{/* RENDER DEL COMPONENTE AL COMPLETO REPERIMENTO DEI DATI */}
 							{dogowner.image ? (
-								<Image src={dogowner.image.imageUrl} className="imgProfile shadow-lg" roundedCircle fluid />
+								<Image src={dogowner.image.imageUrl} className="imgProfile" roundedCircle fluid />
 							) : (
 								<>
 									<div className="iconAddImgProfile" onClick={handleShowModal}>
@@ -60,8 +60,10 @@ const MyProfile = () => {
 						</Col>
 
 						{/* NOME, CITTÀ CAP */}
-						<Col xs={8} lg={7}>
-							<h1 className="display-3">{dogowner.name}</h1>
+						<Col sm={7}>
+							<h1 className="display-3" style={{ lineHeight: 1, marginTop: "-6px" }}>
+								{dogowner.name}
+							</h1>
 							{dogowner.address && (
 								<p>
 									{dogowner.address.city}, {dogowner.address.postalCode}
@@ -93,4 +95,4 @@ const MyProfile = () => {
 		</Container>
 	);
 };
-export default MyProfile;
+export default MyProfileFunzionante;

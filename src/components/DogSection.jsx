@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import DogCard from "./DogCard";
 import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
@@ -10,26 +10,24 @@ const DogSection = ({ dogs }) => {
 	const handleShowModal = () => setShow(true);
 
 	return (
-		<Row className="justify-content-center mt-3 dog">
-			<Col sm={10}>
-				<div className="lead mb-0">
-					<h4 className="font-weight-bold">I tuoi animali domestici:</h4>
-					<Row className="align-items-stretch">
-						{/* DOGS LIST */}
-						{dogs.length > 0 && dogs.map((dog) => <DogCard key={dog.id} dog={dog} />)}
+		<Row className="justify-content-center mt-5 dog">
+			<Col xs={12} lg={10}>
+				<h4 className="font-weight-bold mb-3">I tuoi animali domestici:</h4>
+				<Row xs={1} md={2} className="align-items-stretch g-4">
+					{/* DOGS LIST */}
+					{dogs.length > 0 && dogs.map((dog) => <DogCard key={dog.id} dog={dog} />)}
 
-						{/* ADD DOG */}
-						<Col xs={6} className="dog-card dog-card__add mb-4">
-							<div className="dog-card__svg" onClick={handleShowModal}>
-								<div>
-									<IoAddOutline />
-									<p>Aggiungi un animale domestico</p>
-								</div>
-								<ModalAddDog show={show} handleCloseModal={handleCloseModal} />
+					{/* ADD DOG */}
+					<Col>
+						<Card className="lead shadow card-add">
+							<div className="icon-wrapper p-5" onClick={handleShowModal}>
+								<IoAddOutline />
+								<p className="mb-0">Aggiungi un animale domestico</p>
 							</div>
-						</Col>
-					</Row>
-				</div>
+							<ModalAddDog show={show} handleCloseModal={handleCloseModal} />
+						</Card>
+					</Col>
+				</Row>
 			</Col>
 		</Row>
 	);
