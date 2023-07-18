@@ -81,6 +81,14 @@ body {
 	color: #404347;
 	border-bottom: 1px solid #cfd7de;
 	font-weight: 300;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	/* position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10; */
 }
 .myNavbar a {
 	color: #404347;
@@ -150,12 +158,32 @@ body {
  * DogSitters
  * ------------------------------------
  */
+/* .dogsitters {
+	position: sticky;
+	top: 80px;
+} */
+/* .dogsitters {
+	position: fixed;
+	top: 60px;
+	left: 0;
+	height: calc(100% - 60px);
+	overflow-y: auto;
+	z-index: 0;
+} */
 .dogsitter-card {
 	background-color: #f4f5f6;
 }
 .dogsitter-card img {
 	border-radius: 50%;
 	height: 70px;
+}
+.dogsitter-detail {
+	/* position: fixed; */
+	/* top: 100px; */
+	/* left: 0; */
+	/* overflow-y: auto; */
+	position: sticky;
+	top: 80px;
 }
 .dogsitter-detail h1 {
 	font-family: "Courgette", cursive;

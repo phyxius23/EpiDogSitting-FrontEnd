@@ -22,7 +22,7 @@ const DogSitter = () => {
 	return (
 		<Container>
 			<Row className="my-5 justify-content-center">
-				<Col xs={3}>
+				<Col xs={3} className="dogsitters">
 					<DogSitterList />
 				</Col>
 				<Col xs={7}>

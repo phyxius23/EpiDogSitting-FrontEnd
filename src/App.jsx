@@ -16,7 +16,7 @@ import DogSitter from "./components/DogSitter";
 function App() {
 	return (
 		<BrowserRouter>
-			<Container className="p-0 minHeight-100vh overflow-hidden" fluid>
+			<Container className="p-0 minHeight-100vh" fluid>
 				<MyNavbar />
 				<Routes>
 					<Route path="/" element={<Home />} />
