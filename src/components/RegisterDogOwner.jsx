@@ -16,6 +16,10 @@ const RegisterDogOwner = () => {
 	const sendRegister = async (e) => {
 		e.preventDefault();
 
+		if (!isValidEmail(register.email)) {
+			return toast.warning("Formato email errato");
+		}
+
 		try {
 			const response = await fetch(`http://localhost:5001/auth/register/dogowners`, {
 				method: "POST",
@@ -44,19 +48,28 @@ const RegisterDogOwner = () => {
 		}
 	};
 
+	// validazione email
+	const isValidEmail = (email) => {
+		const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+		return emailRegex.test(email);
+	};
+
 	return (
 		<>
 			<Container className="">
 				<h1 className="text-center">Che aspetti, approfitta dei nostri dogsitters! Registrati!!</h1>
 				<Row className="justify-content-center">
 					<Col xs={6}>
-						<Form className=" rounded form-register" onSubmit={sendRegister} validated>
+						<Form className=" rounded form-register" onSubmit={sendRegister}>
 							<Form.Group className="mb-3">
 								<Form.Label>Nome</Form.Label>
 								<Form.Control
 									type="text"
 									className="input-login"
 									placeholder="Inserisci il tuo nome"
+									pattern="(^[A-Za-z]{3,}$)"
+									title="Sono permessi un minimo di 3 caratteri"
+									autoFocus
 									value={register.name}
 									onChange={(e) => setRegister({ ...register, name: e.target.value })}
 									required
@@ -68,6 +81,8 @@ const RegisterDogOwner = () => {
 									type="text"
 									className="input-login"
 									placeholder="Inserisci il tuo cognome"
+									pattern="(^[A-Za-z]{1,}$)"
+									title="Sono permessi solo caratteri"
 									value={register.surname}
 									onChange={(e) => setRegister({ ...register, surname: e.target.value })}
 									required

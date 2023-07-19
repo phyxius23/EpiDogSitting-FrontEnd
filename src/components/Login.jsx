@@ -54,7 +54,6 @@ const Login = () => {
 
 	// validazione email
 	const isValidEmail = (email) => {
-		// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 		return emailRegex.test(email);
 	};
@@ -82,6 +81,7 @@ const Login = () => {
 								type="email"
 								className="input-login"
 								placeholder="Inserisci la tua email"
+								autoFocus
 								value={login.email}
 								onChange={(e) => setLogin({ ...login, email: e.target.value })}
 							/>
