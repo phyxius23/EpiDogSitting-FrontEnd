@@ -12,12 +12,14 @@ import RegisterDogOwner from "./components/RegisterDogOwner";
 import Login from "./components/Login";
 import MyProfile from "./components/MyProfile";
 import DogSitter from "./components/DogSitter";
+import { ToastContainer } from "react-toastify";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Container className="p-0 minHeight-100vh" fluid>
 				<MyNavbar />
+				<ToastContainer theme="colored" autoClose={1000} />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/accedi" element={<Login />} />

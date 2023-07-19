@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postImageProfileAction } from "../redux/actions";
+import { toast } from "react-toastify";
 
 const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 	const dogowner = useSelector((state) => state.myProfile.user);
@@ -14,8 +15,7 @@ const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 		const formData = new FormData();
 		formData.append("multipartFile", image);
 
-		dispatch(postImageProfileAction(dogowner.id, formData));
-		console.log(formData);
+		dispatch(postImageProfileAction(dogowner.id, formData, toast));
 	};
 
 	return (
@@ -24,7 +24,7 @@ const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 			<Modal show={show} onHide={handleCloseModal}>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						<h3>Aggiungi immagine profilo</h3> {/*dogSitterSelected.name*/}
+						<h3>Aggiungi immagine profilo</h3>
 					</Modal.Title>
 				</Modal.Header>
 				<Form className="rounded form-register" onSubmit={sendImage}>
@@ -37,12 +37,7 @@ const ModalAddImageProfile = ({ show, handleCloseModal }) => {
 						<Button variant="secondary" onClick={handleCloseModal}>
 							Chiudi
 						</Button>
-						<Button
-							className="border-0"
-							style={{
-								backgroundColor: "#452103",
-							}}
-							type="submit">
+						<Button type="submit" variant="warning" className="border-0">
 							Salva immagine
 						</Button>
 					</Modal.Footer>

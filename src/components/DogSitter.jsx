@@ -12,7 +12,6 @@ const DogSitter = () => {
 	const dogowner = useSelector((state) => state.myProfile.user);
 
 	const dogsitter = useSelector((state) => state.dogSitterSelected.content);
-	// const hasFetchError = useSelector((state) => state.dogSitters.hasError);
 
 	useEffect(() => {
 		dispatch(getSearchAction(""));
@@ -20,20 +19,18 @@ const DogSitter = () => {
 	}, []);
 
 	return (
-		<Container>
+		<Container className="dogsitters">
 			<Row className="my-5 justify-content-center">
-				<Col xs={3} className="dogsitters">
+				<Col xs={12} md={4} lg={3} className="dogsitters-list">
 					<DogSitterList />
 				</Col>
-				<Col xs={7}>
+				<Col xs={12} md={8} lg={7}>
 					{dogsitter ? (
-						<DogSitterDetail />
+						<DogSitterDetail key={"key" + dogsitter.id} />
 					) : (
-						<Row>
-							<Col sm={12}>
-								<h3 className="display-6">Seleziona un DogSitter!</h3>
-							</Col>
-						</Row>
+						<div>
+							<h3 className="display-6">Seleziona un DogSitter!</h3>
+						</div>
 					)}
 				</Col>
 				{/* <Col xs={2}>

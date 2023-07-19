@@ -3,6 +3,7 @@ import DogSitterCard from "./DogSitterCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { getSearchAction } from "../redux/actions";
+import { toast } from "react-toastify";
 
 const DogSitterList = () => {
 	const dogSitters = useSelector((state) => state.dogSitters.content.content);
@@ -22,6 +23,11 @@ const DogSitterList = () => {
 
 	const sendQuery = (e) => {
 		e.preventDefault();
+
+		if (!isValidCap(query.postalCode)) {
+			return toast.warning("Inserisci un CAP valido");
+		}
+
 		dispatch(getSearchAction(query));
 
 		setQuery({
@@ -37,8 +43,6 @@ const DogSitterList = () => {
 	const sendReset = (e) => {
 		e.preventDefault();
 
-		console.log("reset!");
-
 		setQuery({
 			page: "",
 			size: "",
@@ -49,6 +53,12 @@ const DogSitterList = () => {
 		});
 
 		dispatch(getSearchAction(""));
+	};
+
+	// validazione del CAP
+	const isValidCap = (cap) => {
+		const capRegex = /^$|^[0-9]{5}$/;
+		return capRegex.test(cap);
 	};
 
 	return (
@@ -69,7 +79,7 @@ const DogSitterList = () => {
 									className="btn-check"
 									id="passeggiata"
 								/>
-								<Form.Check.Label className="btn btn-secondary mb-2" htmlFor="passeggiata">
+								<Form.Check.Label className="btn btn-outline-warning mb-2" htmlFor="passeggiata">
 									Passeggiata
 								</Form.Check.Label>
 								<Form.Check.Input
@@ -80,7 +90,7 @@ const DogSitterList = () => {
 									className="btn-check"
 									id="asiloDiurno"
 								/>
-								<Form.Check.Label className="btn btn-secondary mb-2" htmlFor="asiloDiurno">
+								<Form.Check.Label className="btn btn-outline-warning mb-2" htmlFor="asiloDiurno">
 									Asilo diurno
 								</Form.Check.Label>
 
@@ -92,32 +102,28 @@ const DogSitterList = () => {
 									className="btn-check"
 									id="pernottamento"
 								/>
-								<Form.Check.Label className="btn btn-secondary mb-3" htmlFor="pernottamento">
+								<Form.Check.Label className="btn btn-outline-warning mb-3" htmlFor="pernottamento">
 									Pernottamento
 								</Form.Check.Label>
 
-								<h5>Seleziona CAP di riferimento:</h5>
-								<Form.Control
-									type="text"
-									placeholder="CAP"
-									className="me-2 mb-2"
-									aria-label="Search"
-									value={query.postalCode}
-									onChange={(e) => setQuery({ ...query, postalCode: e.target.value })}
-								/>
-								<Button variant="outline-success" type="submit" className="mb-2">
+								{/* <h5>Seleziona CAP di riferimento:</h5> */}
+								{/* <Form.Label>CAP</Form.Label> */}
+								<Form.Label>
+									<h5>Seleziona CAP di riferimento:</h5>
+								</Form.Label>
+								<Form.Control type="text" placeholder="CAP" value={query.postalCode} onChange={(e) => setQuery({ ...query, postalCode: e.target.value })} className="me-2 mb-2" />
+								<Button type="submit" variant="warning" className="mb-2">
 									Search
 								</Button>
 							</Form>
-							<div className="btn btn-secondary d-block" onClick={sendReset}>
+							<Button type="text" variant="secondary" className="d-block w-100" onClick={sendReset}>
 								Reset
-							</div>
-							{/* <div className="secondary" onClick={sendReset}>
-								Reset
-							</div> */}
+							</Button>
 						</Col>
 					</Row>
-					{dogSitters && dogSitters.map((dogSitter) => <DogSitterCard key={dogSitter.id} dogSitter={dogSitter} />)}
+					<Row xs={2} md={1}>
+						{dogSitters && dogSitters.map((dogSitter) => <DogSitterCard key={dogSitter.id} dogSitter={dogSitter} />)}
+					</Row>
 				</>
 			)}
 		</div>

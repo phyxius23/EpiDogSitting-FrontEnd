@@ -55,9 +55,7 @@ export const getUserLoggedAction = (toast) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				setTimeout(() => {
-					toast.success("Utente loggato", { autoClose: 1000 });
-				}, 2000);
+				toast.success("Utente loggato", { autoClose: 1000 });
 
 				dispatch({ type: GET_USER_LOGGED, payload: data });
 				dispatch({ type: GET_USER_LOADING_OFF });
@@ -76,7 +74,7 @@ export const getUserLoggedAction = (toast) => {
 };
 
 /* ***** SAVE ADDRESS => FUNZIONANTE ***** */
-export const postAddressAction = (userId, addressData) => {
+export const postAddressAction = (userId, addressData, toast) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
 
@@ -93,16 +91,20 @@ export const postAddressAction = (userId, addressData) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
+				toast.success("Indirizzo inserito", { autoClose: 1000 });
+
 				dispatch({ type: POST_ADDRESS, payload: data });
+			} else {
+				toast.error("Salvataggio non eseguito", { autoClose: 1000 });
 			}
 		} catch (error) {
-			console.log(error);
+			toast.error(error.message, { autoClose: 1000 });
 		}
 	};
 };
 
 /* ***** SAVE DOG => FUNZIONANTE ***** */
-export const postDogAction = (dogId, toast, dogData) => {
+export const postDogAction = (dogId, dogData, toast) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
 
@@ -119,19 +121,20 @@ export const postDogAction = (dogId, toast, dogData) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Animale salvato", { autoClose: 1000 });
+				toast.success("Animale salvato");
 
 				dispatch({ type: POST_DOG, payload: data });
+			} else {
+				toast.error("Salvataggio non eseguito");
 			}
 		} catch (error) {
-			console.log(error);
-			toast.error(error, { autoClose: 1000 });
+			toast.error(error.message);
 		}
 	};
 };
 
 /* ***** SAVE IMAGE PROFILE ***** => FUNZIONANTE */
-export const postImageProfileAction = (userId, imageData) => {
+export const postImageProfileAction = (userId, imageData, toast) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
 
@@ -147,10 +150,14 @@ export const postImageProfileAction = (userId, imageData) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
+				toast.success("Immagine salvata", { autoClose: 1000 });
+
 				dispatch({ type: POST_IMAGE, payload: data });
+			} else {
+				toast.error("Immagine non salvata", { autoClose: 1000 });
 			}
 		} catch (error) {
-			console.log(error);
+			toast.error(error.message, { autoClose: 1000 });
 		}
 	};
 };

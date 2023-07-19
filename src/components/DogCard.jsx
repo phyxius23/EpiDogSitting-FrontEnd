@@ -12,7 +12,7 @@ const DogCard = ({ dog }) => {
 		<Col>
 			<Card className="lead shadow card-add">
 				{dog.image ? (
-					<Card.Img variant="top" src={dog.image.imageUrl} fluid />
+					<Card.Img variant="top" src={dog.image.imageUrl} />
 				) : (
 					<>
 						<div className="icon-wrapper p-5" onClick={handleShowModal}>
@@ -29,7 +29,7 @@ const DogCard = ({ dog }) => {
 						</ListGroup.Item>
 						<ListGroup.Item>{dog.breed}</ListGroup.Item>
 						<ListGroup.Item>
-							{!dog.age ? dog.age + " anno" : dog.age + " anni"}, {dog.weight} kg.
+							{dog.age > 1 ? dog.age + " anni" : dog.age + " anno"}, {dog.weight} kg.
 						</ListGroup.Item>
 					</ListGroup>
 				</Card.Body>

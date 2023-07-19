@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserLoggedAction } from "../redux/actions";
 import zampa from "../assets/images/zampa.png";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const [login, setLogin] = useState({
@@ -12,15 +12,16 @@ const Login = () => {
 		password: "",
 	});
 
-	// const [error, setError] = useState(null);
-	// const [errorMessage, setErrorMessage] = useState("");
-
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 
 	const sendLogin = async (e) => {
 		e.preventDefault();
+
+		if (!isValidEmail(login.email)) {
+			return toast.warning("Formato email errato");
+		}
 
 		try {
 			const response = await fetch(`http://localhost:5001/auth/login`, {
@@ -42,23 +43,24 @@ const Login = () => {
 				});
 				dispatch(getUserLoggedAction(toast));
 
-				toast.success("Credenziali corrette", { autoClose: 1000 });
-
-				setTimeout(() => {
-					navigate("/my-profile");
-				}, 2000);
+				navigate("/my-profile");
 			} else {
-				toast.error("Credenziali errate", { autoClose: 1000 });
+				toast.error("Credenziali errate");
 			}
 		} catch (error) {
-			// setError(error);
-			// setErrorMessage(error.message);
-			toast.error(error.message, { autoClose: 1000 });
+			toast.error(error.message);
 		}
 	};
+
+	// validazione email
+	const isValidEmail = (email) => {
+		// const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+		return emailRegex.test(email);
+	};
+
 	return (
 		<Container>
-			<ToastContainer />
 			<Row className="justify-content-center my-5 login">
 				<div className="wrapperImg">
 					<div>
@@ -77,7 +79,7 @@ const Login = () => {
 							<Form.Label>E-mail</Form.Label>
 							<Form.Control
 								required
-								type="text"
+								type="email"
 								className="input-login"
 								placeholder="Inserisci la tua email"
 								value={login.email}
@@ -88,6 +90,8 @@ const Login = () => {
 							<Form.Label>Password</Form.Label>
 							<Form.Control
 								required
+								pattern="(^[0-9]{4}$)"
+								title="La password deve essere composta da 4 caratteri"
 								type="password"
 								className="input-login"
 								placeholder="Inserisci la tua password"
@@ -96,20 +100,10 @@ const Login = () => {
 							/>
 						</Form.Group>
 						<div className="d-flex justify-content-end">
-							<Button
-								className="border-0"
-								style={{
-									backgroundColor: "",
-								}}
-								type="submit">
+							<Button className="border-0" type="submit" variant="warning">
 								Entra
 							</Button>
 						</div>
-						{/* {error && (
-							<Alert className="mt-3" variant="danger" onClose={() => setError(null)} dismissible>
-								{errorMessage}
-							</Alert>
-						)} */}
 					</Form>
 				</Col>
 			</Row>

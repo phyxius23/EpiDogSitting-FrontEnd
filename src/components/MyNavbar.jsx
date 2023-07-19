@@ -12,7 +12,7 @@ const MyNavbar = () => {
 	};
 
 	return (
-		<Row className="myNavbar">
+		<Row className="myNavbar shadow">
 			<Col xs={12}>
 				<Navbar expand="lg" className="bg-body-tertiary">
 					<Container>

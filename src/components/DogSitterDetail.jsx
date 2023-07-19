@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import imgUser from "../assets/images/imgUser.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import ContactForm from "./ModalContactForm";
+import ModalContactForm from "./ModalContactForm";
 import { useEffect, useState } from "react";
-import { IoHeartOutline, IoHeartSharp, IoAddCircleOutline, IoAddCircle } from "react-icons/io5";
+import { IoAddCircleOutline, IoAddCircle } from "react-icons/io5";
 import { addFavoriteAction, removeFavoriteAction } from "../redux/actions";
 import Calendar from "react-calendar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import favoriteChecked from "../assets/icons/dog-favorite.png";
+import dogHouse from "../assets/icons/dog-house.png";
+import dogTraining from "../assets/icons/dog-training.png";
+import dogWalking from "../assets/icons/dog-walking.png";
 
 const DogSitterDetail = () => {
 	const dogsitter = useSelector((state) => state.dogSitterSelected.content);
@@ -24,16 +28,44 @@ const DogSitterDetail = () => {
 			setShow(true);
 		} else {
 			if (!date) {
-				toast.error("Seleziona una data", { autoClose: 1500 });
+				toast.warn("Seleziona una data", { autoClose: 1500 });
 			}
 			if (!serviceSelected) {
-				toast.error("Seleziona un servizio", { autoClose: 1500 });
+				toast.warn("Seleziona un servizio", { autoClose: 1500 });
 			}
 		}
 	};
 
 	// add service
 	const [serviceSelected, setServiceSelected] = useState("");
+
+	// icon service
+	const iconServiceFn = (service) => {
+		switch (service) {
+			case "PASSEGGIATA":
+				return dogWalking;
+			case "ASILO_DIURNO":
+				return dogTraining;
+			case "PERNOTTAMENTO":
+				return dogHouse;
+			default:
+				break;
+		}
+	};
+
+	// transform string service
+	const textServiceFn = (service) => {
+		switch (service) {
+			case "PASSEGGIATA":
+				return "Passeggiata";
+			case "ASILO_DIURNO":
+				return "Asilo diurno";
+			case "PERNOTTAMENTO":
+				return "Pernottamento";
+			default:
+				break;
+		}
+	};
 
 	// calendar
 	const [date, setDate] = useState(new Date());
@@ -70,16 +102,15 @@ const DogSitterDetail = () => {
 	};
 
 	return (
-		<div className="mt-3 mb-4 mb-lg-0 dogsitter-detail">
-			<ToastContainer />
+		<div className="mt-3 mb-4 mb-lg-0 dogsitter-selected">
 			{dogsitter && (
 				<>
 					{/* FOTO, NOME, CITTÀ CAP */}
 					<Row className="align-items-center intro">
-						<Col sm={3}>
-							<Image src={imgUser} roundedCircle fluid />
+						<Col xs={3}>
+							<Image src={imgUser} className="shadow-lg" roundedCircle fluid />
 						</Col>
-						<Col sm={9} className="position-relative">
+						<Col xs={9} className="position-relative">
 							<h1 className="display-3" style={{ lineHeight: 1, marginTop: "-6px" }}>
 								{dogsitter.name}
 							</h1>
@@ -88,72 +119,93 @@ const DogSitterDetail = () => {
 							</p>
 							{/* AGGIUNGO ICONA PREFERITI DIVERSIFICATA */}
 							{isFavorite ? (
-								<div className="favoriteIcon" onClick={removeFavorite}>
-									<IoHeartSharp />
+								<div className="favoriteIcon show" onClick={removeFavorite}>
+									{/* <IoHeartSharp /> */}
+									<Image src={favoriteChecked} />
 								</div>
 							) : (
 								<div className="favoriteIcon" onClick={saveFavorite}>
-									<IoHeartOutline />
+									{/* <IoHeartOutline /> */}
+									<Image src={favoriteChecked} />
 								</div>
 							)}
 						</Col>
 					</Row>
 
 					{/* DESCRIZIONE */}
-					<Row className="mt-3 description">
-						<Col sm={12}>
-							<p className="lead">
-								<span className="font-weight-bold">Description: </span>
-								<span>
-									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga consequuntur minima et quae tempora sequi assumenda officia. Ducimus dolores officiis voluptatem, magnam
-									maxime aut dolorem iure. Ea beatae sint repellat!
-								</span>
-							</p>
+					<Row className="mt-4 description">
+						<Col>
+							<Card className="lead shadow border-0">
+								<Card.Body>
+									<Card.Title className="px-3">
+										<h4>Description:</h4>
+									</Card.Title>
+									<Card.Text className="px-3">
+										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga consequuntur minima et quae tempora sequi assumenda officia. Ducimus dolores officiis voluptatem, magnam
+										maxime aut dolorem iure. Ea beatae sint repellat!
+									</Card.Text>
+								</Card.Body>
+							</Card>
 						</Col>
 					</Row>
 
 					{/* SERVIZI */}
-					<Row className="mt-3 service">
-						<Col sm={12}>
-							<div className="mb-0">
-								<h4 className="font-weight-bold">SERVIZI:</h4>
-								{dogsitter.offerings.map((service) =>
-									service.type === serviceSelected ? (
-										<div className="d-flex justify-content-between mb-2 service-row selected" key={service.id}>
-											<p>{service.type}</p>
-											<div className="d-flex align-items-center">
-												<p className="me-2">€ {service.price}</p>
-												<IoAddCircle className="cursor-pointer" onClick={() => setServiceSelected("")} />
+					<Row className="mt-4 service">
+						<Col>
+							<Card className="border-0 shadow">
+								<Card.Body>
+									<Card.Title>
+										<h4 className="font-weight-bold">SERVIZI:</h4>
+									</Card.Title>
+									{dogsitter.offerings.map((service) =>
+										service.type === serviceSelected ? (
+											<div className="d-flex justify-content-between mb-2 service-row selected" key={service.id}>
+												<div className="d-flex align-items-center">
+													<Image src={iconServiceFn(service.type)} className="serviceIcon" />
+													<Card.Text>{textServiceFn(service.type)}</Card.Text>
+												</div>
+
+												<div className="d-flex align-items-center">
+													<p className="me-2">€ {service.price}</p>
+													<IoAddCircle className="cursor-pointer" onClick={() => setServiceSelected("")} />
+												</div>
+												{}
 											</div>
-										</div>
-									) : (
-										<div className="d-flex justify-content-between mb-2 service-row" key={service.id}>
-											<p>{service.type}</p>
-											<div className="d-flex align-items-center">
-												<p className="me-2">€ {service.price}</p>
-												<IoAddCircleOutline className="cursor-pointer" onClick={() => setServiceSelected(service.type)} />
-											</div>
-										</div>
-									)
-								)}
-							</div>
+										) : (
+											<>
+												<div className="d-flex justify-content-between mb-2 service-row" key={service.id}>
+													<div className="d-flex align-items-center">
+														<Image src={iconServiceFn(service.type)} className="serviceIcon" />
+														<Card.Text>{textServiceFn(service.type)}</Card.Text>
+													</div>
+
+													<div className="d-flex align-items-center">
+														<p className="me-2">€ {service.price}</p>
+														<IoAddCircleOutline className="cursor-pointer" onClick={() => setServiceSelected(service.type)} />
+													</div>
+												</div>
+											</>
+										)
+									)}
+								</Card.Body>
+							</Card>
 						</Col>
 					</Row>
 
 					{/* CALENDAR */}
-					<Row className="mt-3">
+					<Row className="mt-4">
 						<Col>
-							<Calendar onChange={onChange} defaultValue={date} />
+							<Calendar onChange={onChange} defaultValue={date} className="shadow" />
 						</Col>
 					</Row>
 
 					{/* CONTACT FORM */}
 					<Row>
 						<Col className="d-flex justify-content-end">
-							<Button onClick={handleShowModal} variant="secondary" className="mt-3">
+							<Button onClick={handleShowModal} variant="warning" className="shadow mt-3">
 								<span>Contatta il dogsitter</span>
 							</Button>
-							<ContactForm show={show} handleCloseModal={handleCloseModal} service={serviceSelected} date={date} />
+							<ModalContactForm show={show} handleCloseModal={handleCloseModal} service={serviceSelected} date={date} textServiceFn={textServiceFn} />
 						</Col>
 					</Row>
 				</>

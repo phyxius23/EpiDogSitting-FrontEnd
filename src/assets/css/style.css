@@ -22,6 +22,7 @@ h1 {
 body {
 	background-color: #ffffff;
 	color: #1f2124;
+	color: #3f2500;
 	font-family: "Ubuntu", sans-serif;
 	font-size: 16px;
 }
@@ -30,6 +31,57 @@ body {
  * Button Custom
  * ------------------------------------
  */
+/* Service Button */
+.btn {
+	transition-duration: 0.3s;
+}
+.btn:hover {
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.btn-outline-warning {
+	border-color: #f28e00;
+	color: #f28e00;
+}
+.btn:hover.btn-outline-warning {
+	background-color: #f28e00;
+	border-color: #f28e00;
+	color: #fff;
+}
+.btn-check:checked + .btn.btn-outline-warning {
+	background-color: #f28e00;
+	border-color: #f28e00;
+	color: #fff;
+}
+/* CAP Input */
+.form-control:focus {
+	/* color: #212529; */
+	/* background-color: #fff; */
+	border-color: #86b7fe;
+	border-color: #fbbb37;
+	/* outline: 0; */
+	box-shadow: 0 0 0 0.25rem rgba(251, 187, 55, 0.25);
+}
+/* Search Button */
+.btn-warning {
+	background-color: rgba(242, 142, 0, 1);
+	border-color: #f28e00;
+	color: #fff;
+}
+.btn:hover.btn-warning {
+	background-color: rgba(242, 142, 0, 0.85);
+	border-color: rgba(242, 142, 0, 0.85);
+	color: #fff;
+}
+.button-send {
+	display: flex;
+	align-items: center;
+}
+/* CAP Button DogSitterList */
+/* .form-check-input.is-valid ~ .form-check-label,
+.was-validated .form-check-input:valid ~ .form-check-label {
+	color: #198754;
+	color: #f28e00;
+} */
 
 /*
  * Helpers
@@ -56,6 +108,7 @@ body {
 .iconAddImgProfile {
 	background-color: #efefef;
 	border-radius: 50%;
+	max-width: 225px;
 	aspect-ratio: 1/1;
 	display: flex;
 	justify-content: center;
@@ -68,6 +121,7 @@ body {
 	width: 50%;
 	height: 50%;
 }
+
 /*
  * Header
  * ------------------------------------
@@ -75,7 +129,8 @@ body {
 .myNavbar {
 	background-color: #fff;
 	color: #404347;
-	border-bottom: 1px solid #cfd7de;
+	background-color: #f28e00;
+	color: #fff;
 	font-weight: 300;
 	position: sticky;
 	top: 0;
@@ -83,6 +138,7 @@ body {
 }
 .myNavbar a {
 	color: #404347;
+	color: #fff;
 }
 .myNavbar .container > a:first-of-type {
 	font-weight: 500;
@@ -136,72 +192,84 @@ body {
 .my-profile {
 	position: relative;
 }
-.isLoading {
-	position: absolute;
-	top: 150px;
-	left: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
 
 /*
  * DogSitters => IN PREPARAZIONE
  * ------------------------------------
  */
-.dogsitter-card {
-	background-color: #f4f5f6;
+.dogsitters .dogsitters-list .card {
+	scale: 1;
+	transition: all 0.3s linear;
 }
-.dogsitter-card img {
+.dogsitters .dogsitters-list .card:hover {
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35) !important;
+	scale: 1.1;
+}
+.bg-warning {
+	background-color: #f28e00 !important;
+}
+.dogsitters .dogsitters-list .card img {
 	border-radius: 50%;
 	height: 70px;
 }
-.dogsitter-detail {
+.dogsitters .dogsitters-list .card .card-body {
+	align-items: center;
+}
+.dogsitters .dogsitter-selected {
 	position: sticky;
 	top: 80px;
 }
-.dogsitter-detail h1 {
-	font-family: "Courgette", cursive;
-}
-.dogsitter-detail .service > div > div {
-	background-color: #f4f5f6;
-	padding: 1rem 2rem;
-	border-radius: 15px;
-	font-size: 1.25rem;
-	font-weight: 300;
-}
-.dogsitter-detail .service div:last-of-type p {
-	margin-bottom: 0;
-}
-.dogsitter-detail .service .service-row {
-	padding: 0.5rem 1rem;
-	border-radius: 15px;
-}
-.dogsitter-detail .service .selected {
-	background-color: #404347;
-	color: #fff;
-}
-.favoriteIcon {
+.dogsitters .dogsitter-selected .favoriteIcon {
 	position: absolute;
 	top: 0;
 	right: 30px;
+	padding: 0.5rem;
 }
-.favoriteIcon svg {
+.dogsitters .dogsitter-selected .favoriteIcon.show {
+	background-color: #f28e00;
+	border-radius: 50%;
+}
+.dogsitters .dogsitter-selected .favoriteIcon svg,
+.dogsitters .dogsitter-selected .favoriteIcon img {
 	width: 30px;
 	height: 30px;
+}
+.dogsitters .dogsitter-selected .service .card {
+	/* padding: 1rem 2rem; */
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+.dogsitters .dogsitter-selected .service .card-title {
+	padding-inline: 1rem;
+}
+.dogsitters .dogsitter-selected .service div:last-of-type p {
+	margin-bottom: 0;
+}
+.dogsitters .dogsitter-selected .service-row {
+	padding: 0.5rem 1rem;
+	border-radius: 0.375rem;
+}
+
+.dogsitters .dogsitter-selected .service-row .serviceIcon {
+	height: 22px;
+	width: auto;
+	margin-right: 0.5rem;
+	filter: invert(15%) sepia(12%) saturate(6954%) hue-rotate(17deg) brightness(99%) contrast(102%);
+}
+.dogsitters .dogsitter-selected .selected {
+	background-color: rgba(251, 187, 55, 0.5);
+	font-weight: 400;
 }
 
 /* ***** Calendar ***** */
 .react-calendar {
 	width: auto;
 	max-width: 100%;
-	background: white;
 	border: none;
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 1.125em;
 	padding: 1rem 2rem;
-	background-color: #f4f5f6;
-	border-radius: 15px;
+	border-radius: 0.375rem;
 }
 .react-calendar__tile--now {
 	background-color: #ddd;
@@ -247,35 +315,7 @@ body {
 .dog .card .card-body {
 	flex: unset;
 }
-/* .dog-card {
-	overflow: hidden;
-	max-height: 225px;
-}
-.dog-card > div {
-	background-color: #f4f5f6;
-	border-radius: 15px;
-	font-weight: 400;
-}
-.dog-card__img {
-	display: flex;
-	justify-content: center;
-	align-items: center; sotto una certa width deve essere impostato a stretch 
-	text-align: center;
-	overflow: hidden;
-	border-top-left-radius: 15px;
-	border-bottom-left-radius: 15px;
-}
-.dog-card__img img {
-	object-fit: contain;
-}
-.dog-card__svg {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-}
-.dog-card__svg svg {
-	height: auto;
-	width: 20%;
-} */
+
+/* PALETTE COLORI */
+/* #F28E00
+/* #FBBB37 */

@@ -10,14 +10,8 @@ import SectionAddress from "./AddressSection";
 import DogSection from "./DogSection";
 import AddressSection from "./AddressSection";
 
-import { ToastContainer } from "react-toastify";
-
 const MyProfile = () => {
 	const dogowner = useSelector((state) => state.myProfile.user);
-
-	// const isLoading = useSelector((state) => state.myProfile.isLoading);
-	// const hasError = useSelector((state) => state.myProfile.hasError);
-	// const errorMessage = useSelector((state) => state.myProfile.errorMessage);
 
 	const [show, setShow] = useState(false);
 	const handleCloseModal = () => setShow(false);
@@ -26,32 +20,17 @@ const MyProfile = () => {
 	return (
 		<Container className="mt-3 mb-4 mb-lg-0 my-profile">
 			{/* IMAGE, NOME, CITTÀ CAP */}
-			{/* {isLoading && !hasError && (
-				<div className="isLoading">
-					<Spinner animation="border" role="status">
-						<span className="visually-hidden">Loading...</span>
-					</Spinner>
-					<span className="d-block">Loading...</span>
-				</div>
-			)} */}
-
-			{/* ALERT IN CASO DI MANCATO REPERIMENTO DEI DATI */}
-			{/* {hasError && !isLoading && <Alert variant="danger">{errorMessage ? errorMessage : "Errore nel reperire i dati"}</Alert>} */}
-
 			{dogowner && (
 				<>
-					<ToastContainer />
 					<Row className="justify-content-center align-items-center">
 						{/* FORM ADD IMAGE */}
-
-						{/* SPINNER IN ATTESA DEL REPERIMENTO DEI DATI */}
 						<Col xs={4} className="d-flex justify-content-center">
 							{/* RENDER DEL COMPONENTE AL COMPLETO REPERIMENTO DEI DATI */}
 							{dogowner.image ? (
 								<Image src={dogowner.image.imageUrl} className="imgProfile shadow-lg" roundedCircle fluid />
 							) : (
 								<>
-									<div className="iconAddImgProfile" onClick={handleShowModal}>
+									<div className="iconAddImgProfile shadow" onClick={handleShowModal}>
 										<IoPersonAddOutline />
 									</div>
 									<ModalAddImageProfile show={show} handleCloseModal={handleCloseModal} />
