@@ -19,10 +19,6 @@ const AddDogForm = () => {
 
 	const sendDog = (e) => {
 		e.preventDefault();
-		console.log("name: " + dog.name);
-		console.log("age: " + dog.age);
-		console.log("breed: " + dog.breed);
-		console.log("weight: " + dog.weight);
 		dispatch(postDogAction(dogowner.id, dog, toast));
 
 		setDog({

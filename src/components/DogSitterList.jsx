@@ -1,14 +1,16 @@
-import { Alert, Button, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Pagination, Row } from "react-bootstrap";
 import DogSitterCard from "./DogSitterCard";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getSearchAction } from "../redux/actions";
 import { toast } from "react-toastify";
 
 const DogSitterList = () => {
-	const dogSitters = useSelector((state) => state.dogSitters.content.content);
+	const dogsitters = useSelector((state) => state.dogSitters.content);
 	const hasFetchError = useSelector((state) => state.dogSitters.hasError);
 	const hasErrorMessage = useSelector((state) => state.dogSitters.errorMessage);
+
+	const arrayOfTotalPages = Array.from({ length: dogsitters.totalPages }, (_, index) => index + 1);
 
 	const [query, setQuery] = useState({
 		page: "",
@@ -53,6 +55,16 @@ const DogSitterList = () => {
 		});
 
 		dispatch(getSearchAction(""));
+	};
+
+	useEffect(() => {
+		dispatch(getSearchAction(query));
+		console.log("");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [query.page]);
+
+	const handleChangePage = (page) => {
+		setQuery({ ...query, page: page - 1 });
 	};
 
 	// validazione del CAP
@@ -105,9 +117,6 @@ const DogSitterList = () => {
 								<Form.Check.Label className="btn btn-outline-warning mb-3" htmlFor="pernottamento">
 									Pernottamento
 								</Form.Check.Label>
-
-								{/* <h5>Seleziona CAP di riferimento:</h5> */}
-								{/* <Form.Label>CAP</Form.Label> */}
 								<Form.Label>
 									<h5>Seleziona CAP di riferimento:</h5>
 								</Form.Label>
@@ -122,8 +131,23 @@ const DogSitterList = () => {
 						</Col>
 					</Row>
 					<Row xs={2} md={1}>
-						{dogSitters && dogSitters.map((dogSitter) => <DogSitterCard key={dogSitter.id} dogSitter={dogSitter} />)}
+						{dogsitters.content && dogsitters.content.map((dogSitter) => <DogSitterCard key={dogSitter.id} dogSitter={dogSitter} />)}
 					</Row>
+					{/* Pagination */}
+					{dogsitters.totalPages > 1 && (
+						<Row className="mt-3 pagination">
+							<Col>
+								<Pagination className="d-flex">
+									{arrayOfTotalPages.map((page, index) => (
+										<Pagination.Item key={index} active={index === dogsitters.pageable.pageNumber} onClick={() => handleChangePage(page)} className="col-6 text-center shadow">
+											{console.log("index: " + index + "| pageable.number: " + dogsitters.pageable.pageNumber)}
+											{page}
+										</Pagination.Item>
+									))}
+								</Pagination>
+							</Col>
+						</Row>
+					)}
 				</>
 			)}
 		</div>

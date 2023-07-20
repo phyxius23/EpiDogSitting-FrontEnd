@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserLoggedAction } from "../redux/actions";
+import zampa from "../assets/images/zampa.png";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const LoginFunzionante = () => {
 	const [login, setLogin] = useState({
 		email: "",
 		password: "",
@@ -58,46 +59,16 @@ const Login = () => {
 	};
 
 	return (
-		// <div>
-		<main className="form-signin">
-			<Row className="justify-content-center align-items-center">
-				<Col xs={11} sm={9} md={6} lg={5} xl={4}>
-					<Form className="p-5 shadow-lg" onSubmit={sendLogin}>
-						{/* <Image class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" /> */}
-						<h1 className="h3 mb-3 fw-normal">Esegui Login</h1>
-
-						<FloatingLabel controlId="email" label="Email" className="">
-							<Form.Control
-								required
-								type="email"
-								placeholder="name@example.com"
-								autoFocus
-								value={login.email}
-								onChange={(e) => setLogin({ ...login, email: e.target.value })}
-								className="input-login"
-							/>
-						</FloatingLabel>
-
-						<FloatingLabel controlId="password" label="Password" className="mb-3">
-							<Form.Control
-								required
-								type="password"
-								placeholder="Password"
-								pattern="(^[0-9]{4}$)"
-								title="La password deve essere composta da 4 caratteri"
-								value={login.password}
-								onChange={(e) => setLogin({ ...login, password: e.target.value })}
-								className="input-login"
-							/>
-						</FloatingLabel>
-						<Button type="submit" variant="warning" className="w-100">
-							Sign in
-						</Button>
-					</Form>
-				</Col>
-			</Row>
-
-			{/* <Row className="justify-content-center my-5 login">
+		<Container>
+			<Row className="justify-content-center my-5 login">
+				<div className="wrapperImg">
+					<div>
+						<Image src={zampa} fluid />
+						<Image src={zampa} fluid />
+						<Image src={zampa} fluid />
+						<Image src={zampa} fluid />
+					</div>
+				</div>
 				<Col xs={12}>
 					<h1 className="text-center">Esegui il login</h1>
 				</Col>
@@ -135,11 +106,9 @@ const Login = () => {
 						</div>
 					</Form>
 				</Col>
-			</Row> */}
-
-			{/* </div> */}
-		</main>
+			</Row>
+		</Container>
 	);
 };
 
-export default Login;
+export default LoginFunzionante;

@@ -305,7 +305,6 @@ export const selectDogSittersAction = (dogSitter) => ({ type: SELECT_DOGSITTER, 
 export const getSearchAction = (query) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/dogsitters";
-	// const url = "http://localhost:5001/dogsitters?page=&size=&sortBy=&postalCode=&name=&offeringType=";
 
 	return async (dispatch, getState) => {
 		try {

@@ -23,9 +23,11 @@ const MyNavbar = () => {
 						<Navbar.Toggle aria-controls="basic-navbar-nav" />
 						<Navbar.Collapse id="basic-navbar-nav">
 							<Nav className="flex-grow-1 justify-content-end">
-								<Link to={`/cerca-dogsitters`} className={`nav-link me-auto`}>
-									Cerca un Sitter
-								</Link>
+								{myProfile.user.name != null && (
+									<Link to={`/cerca-dogsitters`} className={`nav-link me-auto`}>
+										Cerca un Sitter
+									</Link>
+								)}
 								{/* <Link to={`/diventa-dog-sitter`} className={`nav-link`}>
 									Diventa un Sitter
 								</Link> */}

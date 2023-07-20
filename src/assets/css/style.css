@@ -26,6 +26,11 @@ body {
 	font-family: "Ubuntu", sans-serif;
 	font-size: 16px;
 }
+@media screen and (max-width: 767px) {
+	body {
+		font-size: 14px;
+	}
+}
 
 /*
  * Button Custom
@@ -117,7 +122,64 @@ body {
 	width: 50%;
 	height: 50%;
 }
+.br {
+	border: 1px solid red;
+}
 
+.hero {
+	width: 100%;
+	min-height: 100vh;
+	background-image: url("https://images.pexels.com/photos/9040443/pexels-photo-9040443.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.hero::after {
+	content: " ";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+.hero__text {
+	z-index: 100;
+}
+
+/* .hero {
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background: #000;
+	padding: 20px;
+	position: relative;
+}
+
+.hero__bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 0;
+}
+.hero__bg::after {
+	content: " ";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.45) 100%);
+} */
 /*
  * Header
  * ------------------------------------
@@ -144,7 +206,7 @@ body {
  * Login
  * ------------------------------------
  */
-.login {
+/* .login {
 	position: relative;
 }
 .login > .wrapperImg {
@@ -184,9 +246,37 @@ body {
 .login > div:nth-of-type(2),
 .login > div:nth-of-type(3) {
 	z-index: 100;
-}
+} */
 .my-profile {
 	position: relative;
+}
+/* LOGIN AGGIORNATO */
+.form-signin > div,
+.form-signup > div {
+	min-height: 70vh;
+	text-align: center;
+}
+.form-signin form,
+.form-signup form {
+	border-radius: 0.375rem;
+}
+.form-signin form input[id="email"],
+.form-signup form input[id="name"] {
+	border-bottom-left-radius: unset;
+	border-bottom-right-radius: unset;
+}
+.form-signup form input[id="surname"],
+.form-signup form input[id="email"] {
+	border-radius: unset;
+}
+.form-signin form input[id="password"],
+.form-signup form input[id="password"] {
+	border-top-left-radius: unset;
+	border-top-right-radius: unset;
+}
+.form-signin button,
+.form-signup button {
+	min-height: 50px;
 }
 
 /*
@@ -207,6 +297,11 @@ body {
 .dogsitters .dogsitters-list .card img {
 	border-radius: 50%;
 	height: 70px;
+}
+@media screen and (max-width: 767px) {
+	.dogsitters .dogsitters-list .card img {
+		height: 50px;
+	}
 }
 .dogsitters .dogsitters-list .card .card-body {
 	align-items: center;
@@ -255,6 +350,19 @@ body {
 .dogsitters .dogsitter-selected .selected {
 	background-color: rgba(251, 187, 55, 0.5);
 	font-weight: 400;
+}
+/* ***** Pagination ***** */
+.pagination .page-link:hover {
+	background-color: rgba(242, 142, 0, 0.2);
+}
+.pagination .active > .page-link {
+	background-color: #f28e00;
+	border-color: #f28e00;
+	color: #fff;
+}
+.pagination .page-link {
+	color: #f28e00;
+	border-color: #f28e00;
 }
 
 /* ***** Calendar ***** */

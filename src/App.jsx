@@ -17,7 +17,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
 	return (
 		<BrowserRouter>
-			<Container className="p-0 minHeight-100vh" fluid>
+			<Container fluid>
 				<MyNavbar />
 				<ToastContainer theme="colored" autoClose={1000} />
 				<Routes>
