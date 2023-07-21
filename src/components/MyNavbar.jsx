@@ -16,7 +16,7 @@ const MyNavbar = () => {
 	const [expanded, setExpanded] = useState(false);
 
 	return (
-		<Row className="myNavbar shadow">
+		<Row className="my-navbar shadow">
 			<Col xs={12}>
 				<Navbar expand="lg" className="bg-body-tertiary" expanded={expanded}>
 					<Container>

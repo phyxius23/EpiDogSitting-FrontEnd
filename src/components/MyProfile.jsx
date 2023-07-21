@@ -27,10 +27,10 @@ const MyProfile = () => {
 						<Col xs={4} className="d-flex justify-content-center">
 							{/* RENDER DEL COMPONENTE AL COMPLETO REPERIMENTO DEI DATI */}
 							{dogowner.image ? (
-								<Image src={dogowner.image.imageUrl} className="imgProfile shadow-lg" roundedCircle fluid />
+								<Image src={dogowner.image.imageUrl} className="my-profile__image shadow-lg" roundedCircle fluid />
 							) : (
 								<>
-									<div className="iconAddImgProfile shadow" onClick={handleShowModal}>
+									<div className="my-profile__add-image shadow" onClick={handleShowModal}>
 										<IoPersonAddOutline />
 									</div>
 									<ModalAddImageProfile show={show} handleCloseModal={handleCloseModal} />
