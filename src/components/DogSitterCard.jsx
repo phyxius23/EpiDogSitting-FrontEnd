@@ -3,11 +3,11 @@ import imgUser from "../assets/images/imgUser.jpg";
 import { useDispatch } from "react-redux";
 import { selectDogSittersAction } from "../redux/actions";
 
-const DogSitterCard = ({ dogSitter }) => {
+const DogSitterCard = ({ dogsitter }) => {
 	const dispatch = useDispatch();
 
 	const viewDogsitter = () => {
-		dispatch(selectDogSittersAction(dogSitter));
+		dispatch(selectDogSittersAction(dogsitter));
 	};
 
 	return (
@@ -16,10 +16,10 @@ const DogSitterCard = ({ dogSitter }) => {
 				<Card.Body className="d-flex p-2 p-md-3">
 					<Image src={imgUser} className="shadow" fluid />
 					<div className="ms-2 ms-sm-3">
-						<Card.Text className="font-weight-bold mb-1">{dogSitter.name}</Card.Text>
-						{dogSitter.address && (
+						<Card.Text className="font-weight-bold mb-1">{dogsitter.name}</Card.Text>
+						{dogsitter.address && (
 							<Badge bg="warning" className="shadow">
-								{dogSitter.address.city}, {dogSitter.address.postalCode}
+								{dogsitter.address.city}, {dogsitter.address.postalCode}
 							</Badge>
 						)}
 					</div>

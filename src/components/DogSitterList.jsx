@@ -59,7 +59,7 @@ const DogSitterList = () => {
 
 	useEffect(() => {
 		dispatch(getSearchAction(query));
-		console.log("");
+		// console.log("useEffect => query.page");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [query.page]);
 
@@ -131,7 +131,7 @@ const DogSitterList = () => {
 						</Col>
 					</Row>
 					<Row xs={2} md={1}>
-						{dogsitters.content && dogsitters.content.map((dogSitter) => <DogSitterCard key={dogSitter.id} dogSitter={dogSitter} />)}
+						{dogsitters.content && dogsitters.content.map((dogsitter) => <DogSitterCard key={`dogsitterCard-${dogsitter.id}`} dogsitter={dogsitter} />)}
 					</Row>
 					{/* Pagination */}
 					{dogsitters.totalPages > 1 && (
@@ -139,8 +139,8 @@ const DogSitterList = () => {
 							<Col>
 								<Pagination className="d-flex">
 									{arrayOfTotalPages.map((page, index) => (
-										<Pagination.Item key={index} active={index === dogsitters.pageable.pageNumber} onClick={() => handleChangePage(page)} className="col-6 text-center shadow">
-											{console.log("index: " + index + "| pageable.number: " + dogsitters.pageable.pageNumber)}
+										<Pagination.Item key={index} active={index === dogsitters.pageable.pageNumber} onClick={() => handleChangePage(page)} className="col text-center shadow">
+											{/* {console.log("index: " + index + "| pageable.number: " + dogsitters.pageable.pageNumber)} */}
 											{page}
 										</Pagination.Item>
 									))}

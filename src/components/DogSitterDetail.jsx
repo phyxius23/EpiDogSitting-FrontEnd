@@ -4,7 +4,7 @@ import imgUser from "../assets/images/imgUser.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import ModalContactForm from "./ModalContactForm";
 import { useEffect, useState } from "react";
-import { IoAddCircleOutline, IoAddCircle } from "react-icons/io5";
+import { IoAddCircle } from "react-icons/io5";
 import { addFavoriteAction, removeFavoriteAction } from "../redux/actions";
 import Calendar from "react-calendar";
 import { toast } from "react-toastify";
@@ -103,7 +103,7 @@ const DogSitterDetail = () => {
 
 	return (
 		<div className="mt-3 mb-4 mb-lg-0 dogsitter-selected">
-			{dogsitter && (
+			{dogsitter ? (
 				<>
 					{/* FOTO, NOME, CITTÀ CAP */}
 					<Row className="align-items-center intro">
@@ -120,12 +120,10 @@ const DogSitterDetail = () => {
 							{/* AGGIUNGO ICONA PREFERITI DIVERSIFICATA */}
 							{isFavorite ? (
 								<div className="favoriteIcon show" onClick={removeFavorite}>
-									{/* <IoHeartSharp /> */}
 									<Image src={favoriteChecked} />
 								</div>
 							) : (
 								<div className="favoriteIcon" onClick={saveFavorite}>
-									{/* <IoHeartOutline /> */}
 									<Image src={favoriteChecked} />
 								</div>
 							)}
@@ -150,6 +148,98 @@ const DogSitterDetail = () => {
 					</Row>
 
 					{/* SERVIZI */}
+					<Row className="mt-4 service">
+						<Col>
+							<Card className="border-0 shadow">
+								<Card.Body>
+									<Card.Title>
+										<h4 className="font-weight-bold">SERVIZI:</h4>
+									</Card.Title>
+									{dogsitter.offerings.map((service) => (
+										<div className={`d-flex justify-content-between mb-2 service-row  ${service.type === serviceSelected ? "selected" : ""}`} key={service.id}>
+											<div className="d-flex align-items-center">
+												<Image src={iconServiceFn(service.type)} className="serviceIcon" />
+												<Card.Text>{textServiceFn(service.type)}</Card.Text>
+											</div>
+
+											<div className="d-flex align-items-center">
+												<p className="me-2">€ {service.price}</p>
+												<IoAddCircle className="cursor-pointer" onClick={service.type === serviceSelected ? () => setServiceSelected("") : () => setServiceSelected(service.type)} />
+											</div>
+										</div>
+									))}
+								</Card.Body>
+							</Card>
+						</Col>
+					</Row>
+
+					{/* CALENDAR */}
+					<Row className="mt-4">
+						<Col>
+							<Calendar onChange={onChange} defaultValue={date} className="shadow" />
+						</Col>
+					</Row>
+
+					{/* CONTACT FORM */}
+					<Row>
+						<Col className="d-flex justify-content-end">
+							<Button onClick={handleShowModal} variant="warning" className="shadow mt-3">
+								<span>Contatta il dogsitter</span>
+							</Button>
+							<ModalContactForm show={show} handleCloseModal={handleCloseModal} service={serviceSelected} date={date} textServiceFn={textServiceFn} />
+						</Col>
+					</Row>
+				</>
+			) : (
+				<div>
+					<h3 className="display-6">Seleziona un DogSitter!</h3>
+				</div>
+			)}
+			{/* {dogsitter && (
+				<>
+					FOTO, NOME, CITTÀ CAP
+					<Row className="align-items-center intro">
+						<Col xs={3}>
+							<Image src={imgUser} className="shadow-lg" roundedCircle fluid />
+						</Col>
+						<Col xs={9} className="position-relative">
+							<h1 className="display-3" style={{ lineHeight: 1, marginTop: "-6px" }}>
+								{dogsitter.name}
+							</h1>
+							<p>
+								{dogsitter.address.city}, {dogsitter.address.postalCode}
+							</p>
+							AGGIUNGO ICONA PREFERITI DIVERSIFICATA
+							{isFavorite ? (
+								<div className="favoriteIcon show" onClick={removeFavorite}>
+									<Image src={favoriteChecked} />
+								</div>
+							) : (
+								<div className="favoriteIcon" onClick={saveFavorite}>
+									<Image src={favoriteChecked} />
+								</div>
+							)}
+						</Col>
+					</Row>
+
+					DESCRIZIONE
+					<Row className="mt-4 description">
+						<Col>
+							<Card className="lead shadow border-0">
+								<Card.Body>
+									<Card.Title className="px-3">
+										<h4>Description:</h4>
+									</Card.Title>
+									<Card.Text className="px-3">
+										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga consequuntur minima et quae tempora sequi assumenda officia. Ducimus dolores officiis voluptatem, magnam
+										maxime aut dolorem iure. Ea beatae sint repellat!
+									</Card.Text>
+								</Card.Body>
+							</Card>
+						</Col>
+					</Row>
+
+					SERVIZI
 					<Row className="mt-4 service">
 						<Col>
 							<Card className="border-0 shadow">
@@ -192,14 +282,14 @@ const DogSitterDetail = () => {
 						</Col>
 					</Row>
 
-					{/* CALENDAR */}
+					CALENDAR
 					<Row className="mt-4">
 						<Col>
 							<Calendar onChange={onChange} defaultValue={date} className="shadow" />
 						</Col>
 					</Row>
 
-					{/* CONTACT FORM */}
+					CONTACT FORM
 					<Row>
 						<Col className="d-flex justify-content-end">
 							<Button onClick={handleShowModal} variant="warning" className="shadow mt-3">
@@ -209,7 +299,7 @@ const DogSitterDetail = () => {
 						</Col>
 					</Row>
 				</>
-			)}
+			)} */}
 		</div>
 	);
 };
