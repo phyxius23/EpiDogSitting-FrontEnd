@@ -23,19 +23,9 @@ const DogSitter = () => {
 				<Col xs={12} md={4} lg={3} className="dogsitters-list">
 					<DogSitterList />
 				</Col>
-				{/* <Col xs={12} md={8} lg={7}>
-					<DogSitterDetail />
-				</Col> */}
+
 				<Col xs={12} md={8} lg={7}>
 					<DogSitterDetail />
-
-					{/* {dogsitter ? (
-						<DogSitterDetail key={`dogsitterSelected-${nanoid(6)}`} />
-					) : (
-						<div>
-							<h3 className="display-6">Seleziona un DogSitter!</h3>
-						</div>
-					)} */}
 				</Col>
 
 				{/* <Col xs={2}>
