@@ -19,7 +19,6 @@ const myFavoritesReducer = (state = initialState, action) => {
 		case REMOVE_FAVORITE:
 			return {
 				...state,
-				// content: state.content.filter((_, i) => i !== action.payload),
 				content: state.content.filter((favorite) => favorite.id !== action.payload),
 			};
 		case FAVORITE_LOGOUT:

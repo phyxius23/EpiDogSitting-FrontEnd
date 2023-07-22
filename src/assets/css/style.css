@@ -225,6 +225,39 @@ body {
 .dog .card .card-body {
 	flex: unset;
 }
+.dog .card > div {
+	position: relative;
+}
+.dog .card__icon-remove {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(255, 255, 255, 0.2);
+	width: 100%;
+	display: flex;
+	justify-content: end;
+}
+/* .dog .card__icon-remove > div {
+	cursor: pointer;
+} */
+.dog .card-footer {
+	background-color: #f28e00;
+}
+.dog .card-footer svg,
+.dog .card__icon-remove svg {
+	display: block;
+	margin: 0.5rem;
+	fill: #fff;
+	cursor: pointer;
+}
+.dog .card-footer svg {
+	/* fill: #3f2500; */
+	width: 20px;
+	height: 20px;
+}
+.dog .card-footer span {
+	font-size: 1rem;
+}
 
 /*
  * DogSitters
