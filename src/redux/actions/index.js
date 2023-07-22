@@ -138,7 +138,7 @@ export const postDogAction = (dogId, dogData, toast) => {
 };
 
 /* ***** REMOVE DOG ***** => FUNZIONANTE */
-export const removeDogAction = (dogId) => {
+export const removeDogAction = (dogId, toast) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/dogs/";
 
@@ -152,12 +152,14 @@ export const removeDogAction = (dogId) => {
 				},
 			});
 			if (resp.ok) {
-				//let data = await resp.json();
+				toast.success("Animale cancellato");
 
 				dispatch({ type: REMOVE_DOG, payload: dogId });
+			} else {
+				toast.error("Cancellazione non riuscita");
 			}
 		} catch (error) {
-			console.log(error);
+			toast.error(error.message);
 		}
 	};
 };
@@ -240,12 +242,9 @@ export const removeImageDogAction = (dog, toast) => {
 				},
 			});
 			if (resp.ok) {
-				//let data = await resp.json();
-				// console.log("Fetch rimozione immagine con id: " + imageId);
-
 				toast.success("Immagine eliminata");
 
-				//dispatch({ type: REMOVE_IMAGE_DOG, payload: dog.id });
+				dispatch({ type: REMOVE_IMAGE_DOG, payload: dog.id });
 			}
 		} catch (error) {
 			toast.error(error.message);

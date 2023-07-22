@@ -25,8 +25,7 @@ const DogCard = ({ dog }) => {
 	};
 
 	const handleRemoveDog = () => {
-		dispatch(removeDogAction(dog.id));
-		console.log("removeDogAction");
+		dispatch(removeDogAction(dog.id, toast));
 	};
 
 	return (

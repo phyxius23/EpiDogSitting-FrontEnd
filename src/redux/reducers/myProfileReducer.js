@@ -86,9 +86,6 @@ const myProfileReducer = (state = initialState, action) => {
 				user: {
 					...state.user,
 					dogs: state.user.dogs.map((dog) => {
-						console.log("reducer dogId: " + dog.id);
-						console.log("reducer imageId: " + dog.image.id);
-						console.log("reducer payload: " + action.payload);
 						if (dog.id === action.payload) {
 							return {
 								...dog,

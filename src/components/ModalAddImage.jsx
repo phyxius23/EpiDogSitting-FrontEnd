@@ -11,6 +11,8 @@ const ModalAddImage = ({ show, handleCloseModal, dog }) => {
 	const sendImage = (e) => {
 		e.preventDefault();
 
+		handleCloseModal();
+
 		const formData = new FormData();
 		formData.append("multipartFile", image);
 
