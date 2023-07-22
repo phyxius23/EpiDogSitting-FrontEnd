@@ -14,6 +14,7 @@ export const FAVORITE_LOGOUT = "FAVORITE_LOGOUT";
 export const POST_ADDRESS = "POST_ADDRESS";
 
 export const POST_DOG = "POST_DOG";
+export const PUT_DOG = "PUT_DOG";
 export const REMOVE_DOG = "REMOVE_DOG";
 
 export const POST_IMAGE = "POST_IMAGE";
@@ -128,6 +129,36 @@ export const postDogAction = (dogId, dogData, toast) => {
 				toast.success("Animale salvato");
 
 				dispatch({ type: POST_DOG, payload: data });
+			} else {
+				toast.error("Salvataggio non eseguito");
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
+};
+
+/* ***** UPDATE DOG => DA TESTARE ***** */
+export const updateDogAction = (dogownerId, dogId, dogData, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/api/dogowner/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogownerId + "/dog/" + dogId, {
+				method: "PUT",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(dogData),
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				toast.success("Animale salvato");
+
+				dispatch({ type: PUT_DOG, payload: data });
 			} else {
 				toast.error("Salvataggio non eseguito");
 			}

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { postDogAction } from "../redux/actions";
+import { updateDogAction } from "../redux/actions";
 import { IoPaperPlaneSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 
-const ModalAddDogFunzionante = ({ show, handleCloseModal }) => {
+const ModalUpdateDog = ({ show, handleCloseModal, dogSelected }) => {
 	const dogowner = useSelector((state) => state.myProfile.user);
 	const dispatch = useDispatch();
 
 	const [dog, setDog] = useState({
-		name: "",
-		age: "",
-		breed: "",
-		weight: "",
+		name: dogSelected.name,
+		age: dogSelected.age,
+		breed: dogSelected.breed,
+		weight: dogSelected.weight,
 		description: "",
 		// se la elimino devo eliminarla o renderla opzionale lato backend
 	});
@@ -23,15 +23,15 @@ const ModalAddDogFunzionante = ({ show, handleCloseModal }) => {
 
 		handleCloseModal();
 
-		dispatch(postDogAction(dogowner.id, dog, toast));
+		dispatch(updateDogAction(dogowner.id, dogSelected.id, dog, toast));
 
-		setDog({
-			name: "",
-			age: "",
-			breed: "",
-			weight: "",
-			// description: "",
-		});
+		// setDog({
+		// 	name: "",
+		// 	age: "",
+		// 	breed: "",
+		// 	weight: "",
+		// 	// description: "",
+		// });
 	};
 
 	return (
@@ -78,4 +78,4 @@ const ModalAddDogFunzionante = ({ show, handleCloseModal }) => {
 		</Modal>
 	);
 };
-export default ModalAddDogFunzionante;
+export default ModalUpdateDog;

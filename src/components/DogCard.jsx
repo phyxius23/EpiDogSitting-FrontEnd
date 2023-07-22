@@ -5,23 +5,28 @@ import ModalAddImage from "./ModalAddImage";
 import { useDispatch } from "react-redux";
 import { removeDogAction, removeImageDogAction } from "../redux/actions";
 import { toast } from "react-toastify";
+import ModalUpdateDog from "./ModalUpdateDog";
 
 const DogCard = ({ dog }) => {
-	const [show, setShow] = useState(false);
-	const handleCloseModal = () => setShow(false);
-	const handleShowModal = () => setShow(true);
 	const dispatch = useDispatch();
 
-	const handleUpdateImageDog = () => {
-		console.log("Cambia l'immagine");
-	};
+	// add dog image
+	const [showAddImage, setShowAddImage] = useState(false);
+	const handleCloseModalAddImage = () => setShowAddImage(false);
+	const handleShowModalAddImage = () => setShowAddImage(true);
+
+	// update dog
+	const [showUpdateDog, setShowUpdateDog] = useState(false);
+	const handleCloseModalUpdateDog = () => setShowUpdateDog(false);
+	const handleShowModalUpdateDog = () => setShowUpdateDog(true);
+
+	// update dog image
+	const [showUpdateImage, setShowUpdateImage] = useState(false);
+	// const handleCloseModalUpdateImage = () => setShowUpdateImage(false);
+	const handleShowModalUpdateImage = () => setShowUpdateImage(true);
 
 	const handleRemoveImageDog = () => {
 		dispatch(removeImageDogAction(dog, toast));
-	};
-
-	const handleUpdateDog = () => {
-		console.log("Modifica il cane");
 	};
 
 	const handleRemoveDog = () => {
@@ -34,7 +39,7 @@ const DogCard = ({ dog }) => {
 				{dog.image ? (
 					<div>
 						<div className="card__icon-remove">
-							<div onClick={handleUpdateImageDog}>
+							<div onClick={handleShowModalUpdateImage}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
 									<title>Cambia l'mmagine</title>
 									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -56,11 +61,11 @@ const DogCard = ({ dog }) => {
 					</div>
 				) : (
 					<>
-						<div className="icon-wrapper p-5" onClick={handleShowModal}>
+						<div className="icon-wrapper p-5" onClick={handleShowModalAddImage}>
 							<IoAddOutline />
 							<p className="mb-0">Aggiungi una immagine</p>
 						</div>
-						<ModalAddImage show={show} handleCloseModal={handleCloseModal} dog={dog} />
+						<ModalAddImage show={showAddImage} handleCloseModal={handleCloseModalAddImage} dog={dog} />
 					</>
 				)}
 				<Card.Body>
@@ -75,7 +80,7 @@ const DogCard = ({ dog }) => {
 					</ListGroup>
 				</Card.Body>
 				<Card.Footer className="text-muted d-flex justify-content-end">
-					<div className="d-flex align-items-center text-white" onClick={handleUpdateDog}>
+					<div className="d-flex align-items-center text-white" onClick={handleShowModalUpdateDog}>
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
 							<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
 							<path
@@ -93,6 +98,7 @@ const DogCard = ({ dog }) => {
 						<span>Elimina</span>
 					</div>
 				</Card.Footer>
+				<ModalUpdateDog show={showUpdateDog} handleCloseModal={handleCloseModalUpdateDog} dogSelected={dog} />
 			</Card>
 		</Col>
 	);

@@ -1,4 +1,17 @@
-import { GET_USER_LOGGED, GET_USER_ERROR, GET_USER_LOADING_ON, GET_USER_LOADING_OFF, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE, POST_IMAGE_DOG, REMOVE_DOG, REMOVE_IMAGE_DOG } from "../actions";
+import {
+	GET_USER_LOGGED,
+	GET_USER_ERROR,
+	GET_USER_LOADING_ON,
+	GET_USER_LOADING_OFF,
+	POST_ADDRESS,
+	POST_DOG,
+	USER_LOGOUT,
+	POST_IMAGE,
+	POST_IMAGE_DOG,
+	REMOVE_DOG,
+	REMOVE_IMAGE_DOG,
+	PUT_DOG,
+} from "../actions";
 
 const initialState = {
 	user: "",
@@ -46,6 +59,20 @@ const myProfileReducer = (state = initialState, action) => {
 				user: {
 					...state.user,
 					dogs: [...state.user.dogs, action.payload],
+				},
+			};
+		case PUT_DOG:
+			return {
+				...state,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.map((dog) => {
+						if (dog.id === action.payload.id) {
+							return action.payload;
+						} else {
+							return dog;
+						}
+					}),
 				},
 			};
 		case REMOVE_DOG:
