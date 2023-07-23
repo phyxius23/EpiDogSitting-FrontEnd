@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { postAddressAction } from "../redux/actions";
+import { putAddressAction } from "../redux/actions";
 import { toast } from "react-toastify";
 
-const AddAddressForm = () => {
+const ModalUpdateAddress = ({ show, handleCloseModal }) => {
 	const dogowner = useSelector((state) => state.myProfile.user);
+	const dogownerAddress = useSelector((state) => state.myProfile.user.address);
 	const dispatch = useDispatch();
 
 	const [address, setAddress] = useState({
-		street: "",
-		city: "",
-		province: "",
-		postalCode: "",
+		street: dogownerAddress.street,
+		city: dogownerAddress.city,
+		province: dogownerAddress.province,
+		postalCode: dogownerAddress.postalCode,
 	});
 
 	const sendAddress = (e) => {
@@ -22,14 +23,9 @@ const AddAddressForm = () => {
 			return toast.warning("Inserisci un CAP valido");
 		}
 
-		dispatch(postAddressAction(dogowner.id, address, toast));
+		handleCloseModal();
 
-		setAddress({
-			street: "",
-			city: "",
-			province: "",
-			postalCode: "",
-		});
+		dispatch(putAddressAction(dogowner.id, dogownerAddress.id, address, toast));
 	};
 
 	// validazione del CAP
@@ -39,14 +35,16 @@ const AddAddressForm = () => {
 	};
 
 	return (
-		<Row className="justify-content-center mt-5 address">
-			<Col xs={6}>
-				<Card className="shadow">
-					<Form className=" rounded form-register" onSubmit={sendAddress}>
-						<Card.Title className="border-bottom mb-3">
-							<h4 className="font-weight-bold">Inserisci il tuo indirizzo:</h4>
-						</Card.Title>
-
+		<>
+			{/* FORM UPDATE IMAGE */}
+			<Modal show={show} onHide={handleCloseModal}>
+				<Modal.Header closeButton>
+					<Modal.Title>
+						<h3>Modifica l'indirizzo di {dogowner.name}</h3>
+					</Modal.Title>
+				</Modal.Header>
+				<Form className="rounded form-register" onSubmit={sendAddress}>
+					<Modal.Body>
 						<Form.Group className="mb-3">
 							<Form.Label>Via</Form.Label>
 							<Form.Control type="text" placeholder="Inserisci la via" value={address.street} onChange={(e) => setAddress({ ...address, street: e.target.value })} required />
@@ -77,16 +75,18 @@ const AddAddressForm = () => {
 							<Form.Label>CAP</Form.Label>
 							<Form.Control type="number" placeholder="Inserisci il CAP" value={address.postalCode} onChange={(e) => setAddress({ ...address, postalCode: e.target.value })} required />
 						</Form.Group>
-
-						<div className="d-flex justify-content-end">
-							<Button type="submit" variant="warning" className="border-0">
-								Salva indirizzo
-							</Button>
-						</div>
-					</Form>
-				</Card>
-			</Col>
-		</Row>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button variant="secondary" onClick={handleCloseModal}>
+							Chiudi
+						</Button>
+						<Button type="submit" variant="warning" className="border-0">
+							Salva indirizzo
+						</Button>
+					</Modal.Footer>
+				</Form>
+			</Modal>
+		</>
 	);
 };
-export default AddAddressForm;
+export default ModalUpdateAddress;

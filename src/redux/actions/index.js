@@ -12,12 +12,15 @@ export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
 export const FAVORITE_LOGOUT = "FAVORITE_LOGOUT";
 
 export const POST_ADDRESS = "POST_ADDRESS";
+export const PUT_ADDRESS = "PUT_ADDRESS";
 
 export const POST_DOG = "POST_DOG";
 export const PUT_DOG = "PUT_DOG";
 export const REMOVE_DOG = "REMOVE_DOG";
 
 export const POST_IMAGE = "POST_IMAGE";
+export const PUT_IMAGE = "PUT_IMAGE";
+export const REMOVE_IMAGE = "REMOVE_IMAGE";
 
 export const POST_IMAGE_DOG = "POST_IMAGE_DOG";
 export const PUT_IMAGE_DOG = "PUT_IMAGE_DOG";
@@ -62,7 +65,7 @@ export const getUserLoggedAction = (toast) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Utente loggato", { autoClose: 1000 });
+				toast.success("Utente loggato");
 
 				dispatch({ type: GET_USER_LOGGED, payload: data });
 				dispatch({ type: GET_USER_LOADING_OFF });
@@ -98,14 +101,44 @@ export const postAddressAction = (userId, addressData, toast) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Indirizzo inserito", { autoClose: 1000 });
+				toast.success("Indirizzo inserito");
 
 				dispatch({ type: POST_ADDRESS, payload: data });
 			} else {
-				toast.error("Salvataggio non eseguito", { autoClose: 1000 });
+				toast.error("Salvataggio non eseguito");
 			}
 		} catch (error) {
-			toast.error(error.message, { autoClose: 1000 });
+			toast.error(error.message);
+		}
+	};
+};
+
+/* ***** UPDATE ADDRESS => DA TESTARE ***** */
+export const putAddressAction = (userId, addressId, addressData, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/api/dogowner/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + userId + "/address/" + addressId, {
+				method: "PUT",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(addressData),
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				toast.success("Indirizzo inserito");
+
+				dispatch({ type: PUT_ADDRESS, payload: data });
+			} else {
+				toast.error("Salvataggio non eseguito");
+			}
+		} catch (error) {
+			toast.error(error.message);
 		}
 	};
 };
@@ -219,6 +252,32 @@ export const postImageProfileAction = (userId, imageData, toast) => {
 				dispatch({ type: POST_IMAGE, payload: data });
 			} else {
 				toast.error("Immagine non salvata");
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
+};
+
+/* ***** REMOVE IMAGE PROFILE ***** => DA TESTARE */
+export const removeImageProfileAction = (imageId, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/image/delete/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + imageId, {
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				toast.success("Immagine profilo eliminata");
+
+				dispatch({ type: REMOVE_IMAGE });
+			} else {
+				toast.error("Immagine non eliminata");
 			}
 		} catch (error) {
 			toast.error(error.message);

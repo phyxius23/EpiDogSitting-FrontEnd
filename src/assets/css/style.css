@@ -84,6 +84,9 @@ body {
 .cursor-pointer {
 	cursor: pointer;
 }
+.mblock-4 {
+	margin-block: 80px;
+}
 
 /*
  * Header
@@ -171,11 +174,35 @@ body {
  * MyProfile (Dogowner)
  * ------------------------------------
  */
+.my-profile .my-profile__wrapper-image {
+	position: relative;
+	border-radius: 50%;
+	overflow: hidden;
+}
 .my-profile .my-profile__image {
 	max-width: 225px;
 	aspect-ratio: 1/1;
 	object-fit: cover;
 	width: 100%;
+}
+.my-profile .my-profile__wrapper-image .card__icon-remove {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: #f28e00;
+}
+.my-profile .my-profile__wrapper-image .card__icon-remove > div {
+	margin: 0.4rem;
+}
+.my-profile .my-profile__wrapper-image .card__icon-remove svg {
+	fill: #fff;
+	width: 20px;
+	height: auto;
+	cursor: pointer;
 }
 .my-profile .my-profile__add-image {
 	background-color: #efefef;
@@ -200,12 +227,42 @@ body {
 	font-size: 1.25rem;
 	font-weight: 300;
 	border: unset;
+	position: relative;
+}
+.address .card form {
+	margin: 20px;
+}
+.address .card__icon-remove {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+}
+.address .card__icon-remove > div {
+	height: 100%;
+	display: flex;
+	align-items: end;
+}
+.address .card__icon-remove svg {
+	margin: 1rem;
+	width: 20px;
+	height: auto;
+	cursor: pointer;
 }
 
 /* ***** Dog-Card ***** */
 .dog .card {
 	border: unset;
 }
+.dog .card__first-dog {
+	padding: 1rem 2rem;
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+.dog .card form {
+	margin: 20px;
+}
+
 .dog .card .icon-wrapper {
 	display: flex;
 	flex-direction: column;

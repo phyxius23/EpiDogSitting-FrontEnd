@@ -4,11 +4,13 @@ import {
 	GET_USER_LOADING_ON,
 	GET_USER_LOADING_OFF,
 	POST_ADDRESS,
+	PUT_ADDRESS,
 	POST_DOG,
 	PUT_DOG,
 	REMOVE_DOG,
 	USER_LOGOUT,
 	POST_IMAGE,
+	REMOVE_IMAGE,
 	POST_IMAGE_DOG,
 	PUT_IMAGE_DOG,
 	REMOVE_IMAGE_DOG,
@@ -54,6 +56,15 @@ const myProfileReducer = (state = initialState, action) => {
 					address: action.payload,
 				},
 			};
+		case PUT_ADDRESS:
+			return {
+				...state,
+				user: {
+					...state.user,
+					address: action.payload,
+				},
+			};
+
 		case POST_DOG:
 			return {
 				...state,
@@ -92,6 +103,15 @@ const myProfileReducer = (state = initialState, action) => {
 					image: action.payload,
 				},
 			};
+		case REMOVE_IMAGE:
+			return {
+				...state,
+				user: {
+					...state.user,
+					image: null,
+				},
+			};
+
 		case POST_IMAGE_DOG:
 			return {
 				...state,
