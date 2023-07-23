@@ -32,6 +32,14 @@ body {
 }
 
 /*
+ * Typography
+ * ------------------------------------
+ */
+p {
+	font-size: 17px;
+}
+
+/*
  * Button Custom
  * ------------------------------------
  */
@@ -241,13 +249,21 @@ body {
 .address .card__icon-remove > div {
 	height: 100%;
 	display: flex;
-	align-items: end;
+	align-items: flex-end;
 }
 .address .card__icon-remove svg {
 	margin: 1rem;
 	width: 20px;
 	height: auto;
 	cursor: pointer;
+}
+@media screen and (max-width: 767px) {
+	.address .card .list-group-item {
+		font-size: 17px;
+	}
+	.my-profile .my-profile__wrapper-image .card__icon-remove svg {
+		width: 17px;
+	}
 }
 
 /* ***** Dog-Card ***** */
@@ -292,11 +308,8 @@ body {
 	background-color: rgba(255, 255, 255, 0.2);
 	width: 100%;
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 }
-/* .dog .card__icon-remove > div {
-	cursor: pointer;
-} */
 .dog .card-footer {
 	background-color: #f28e00;
 }
@@ -323,6 +336,9 @@ body {
 .dogsitters .dogsitters-list .card {
 	scale: 1;
 	transition: all 0.3s linear;
+}
+.dogsitters .masonry .card {
+	padding: 0.6rem;
 }
 .dogsitters .dogsitters-list .card:hover {
 	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35) !important;
@@ -352,6 +368,7 @@ body {
 	top: 0;
 	right: 30px;
 	padding: 0.5rem;
+	cursor: pointer;
 }
 .dogsitters .dogsitter-selected .favoriteIcon.show {
 	background-color: #f28e00;
@@ -386,6 +403,70 @@ body {
 	background-color: rgba(251, 187, 55, 0.5);
 	font-weight: 400;
 }
+.dogsitters .dogsitter-selected .landing-intro {
+	margin-top: 2.5rem;
+}
+.dogsitters .dogsitter-selected .landing-intro p {
+	font-size: 1.3rem;
+}
+@media screen and (max-width: 768px) {
+	.dogsitters .dogsitter-selected .landing-intro p {
+		font-size: 18px;
+		margin-bottom: 0;
+	}
+}
+.dogsitters .dogsitter-selected .landing-image {
+	margin-top: 2.5rem;
+}
+.dogsitters .dogsitter-selected .landing-image > div > div {
+	max-height: 300px;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 0.375rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.dogsitters .dogsitter-selected .landing-image img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 0.375rem;
+	align-self: center;
+}
+.dogsitters .dogsitter-selected .landing-service {
+	margin-top: 2.5rem;
+}
+.dogsitters .dogsitter-selected .landing-service > div {
+	text-align: center;
+}
+.dogsitters .dogsitter-selected .landing-service .landing-service__wrapper-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.dogsitters .dogsitter-selected .landing-service .landing-service__wrapper-icon > div {
+	background-color: #f28e00;
+	padding: 3rem;
+	border-radius: 50%;
+}
+.dogsitters .dogsitter-selected .landing-service .landing-service__wrapper-icon img {
+	width: 60px;
+	height: auto;
+	aspect-ratio: 1/1;
+	filter: invert(1);
+}
+@media screen and (max-width: 768px) {
+	.dogsitters .dogsitter-selected .landing-service .landing-service__wrapper-icon > div {
+		padding: 2rem;
+	}
+	.dogsitters .dogsitter-selected .landing-service .landing-service__wrapper-icon img {
+		width: 40px;
+	}
+	.dogsitters .dogsitter-selected .landing-service h3 {
+		font-size: 1.3rem;
+	}
+}
 
 /* ***** Pagination ***** */
 .pagination .page-link:hover {
@@ -418,4 +499,19 @@ body {
 .react-calendar__tile--active:enabled:focus,
 .react-calendar__tile--active {
 	background-color: #404347;
+}
+
+.card {
+	border-radius: 0.375rem;
+}
+
+.my-footer {
+	background-color: #f28e00;
+	color: #fff;
+}
+.my-footer ul {
+	border-bottom: 1px solid #fff;
+}
+.my-footer a {
+	color: #fff;
 }
