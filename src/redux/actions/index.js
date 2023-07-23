@@ -18,7 +18,9 @@ export const PUT_DOG = "PUT_DOG";
 export const REMOVE_DOG = "REMOVE_DOG";
 
 export const POST_IMAGE = "POST_IMAGE";
+
 export const POST_IMAGE_DOG = "POST_IMAGE_DOG";
+export const PUT_IMAGE_DOG = "PUT_IMAGE_DOG";
 export const REMOVE_IMAGE_DOG = "REMOVE_IMAGE_DOG";
 
 export const SELECT_DOGSITTER = "SELECT_DOGSITTER";
@@ -138,7 +140,7 @@ export const postDogAction = (dogId, dogData, toast) => {
 	};
 };
 
-/* ***** UPDATE DOG => DA TESTARE ***** */
+/* ***** UPDATE DOG => FUNZIONANTE ***** */
 export const updateDogAction = (dogownerId, dogId, dogData, toast) => {
 	const token = localStorage.getItem("token");
 	const url = "http://localhost:5001/api/dogowner/";
@@ -254,6 +256,40 @@ export const postImageDogAction = (dogId, toast, imageData) => {
 		} catch (error) {
 			// console.log(error);
 			toast.error("Salvataggio non eseguito");
+		}
+	};
+};
+
+/* ***** UPDATE IMAGE DOG ***** => FUNZIONANTE */
+export const putImageDogAction = (dogId, imageId, imageData, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/image/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogId + "/update/" + imageId + "/image/upload", {
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: imageData,
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				toast.success("Immagine aggiornata");
+
+				dispatch({
+					type: PUT_IMAGE_DOG,
+					payload: {
+						response: data,
+						dogId: dogId,
+					},
+				});
+			}
+		} catch (error) {
+			// console.log(error);
+			toast.error("Immagine non aggiornata");
 		}
 	};
 };

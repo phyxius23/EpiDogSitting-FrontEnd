@@ -5,12 +5,13 @@ import {
 	GET_USER_LOADING_OFF,
 	POST_ADDRESS,
 	POST_DOG,
+	PUT_DOG,
+	REMOVE_DOG,
 	USER_LOGOUT,
 	POST_IMAGE,
 	POST_IMAGE_DOG,
-	REMOVE_DOG,
+	PUT_IMAGE_DOG,
 	REMOVE_IMAGE_DOG,
-	PUT_DOG,
 } from "../actions";
 
 const initialState = {
@@ -98,6 +99,22 @@ const myProfileReducer = (state = initialState, action) => {
 					...state.user,
 					dogs: state.user.dogs.map((dog) => {
 						if (dog.id === action.payload.id) {
+							return {
+								...dog,
+								image: action.payload.response,
+							};
+						}
+						return { ...dog };
+					}),
+				},
+			};
+		case PUT_IMAGE_DOG:
+			return {
+				...state,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.map((dog) => {
+						if (dog.id === action.payload.dogId) {
 							return {
 								...dog,
 								image: action.payload.response,
