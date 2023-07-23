@@ -1,4 +1,20 @@
-import { GET_USER_LOGGED, GET_USER_ERROR, GET_USER_LOADING_ON, GET_USER_LOADING_OFF, POST_ADDRESS, POST_DOG, USER_LOGOUT, POST_IMAGE, POST_IMAGE_DOG } from "../actions";
+import {
+	GET_USER_LOGGED,
+	GET_USER_ERROR,
+	GET_USER_LOADING_ON,
+	GET_USER_LOADING_OFF,
+	POST_ADDRESS,
+	PUT_ADDRESS,
+	POST_DOG,
+	PUT_DOG,
+	REMOVE_DOG,
+	USER_LOGOUT,
+	POST_IMAGE,
+	REMOVE_IMAGE,
+	POST_IMAGE_DOG,
+	PUT_IMAGE_DOG,
+	REMOVE_IMAGE_DOG,
+} from "../actions";
 
 const initialState = {
 	user: "",
@@ -30,7 +46,6 @@ const myProfileReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 			};
-
 		case USER_LOGOUT:
 			return initialState;
 		case POST_ADDRESS:
@@ -41,12 +56,43 @@ const myProfileReducer = (state = initialState, action) => {
 					address: action.payload,
 				},
 			};
+		case PUT_ADDRESS:
+			return {
+				...state,
+				user: {
+					...state.user,
+					address: action.payload,
+				},
+			};
+
 		case POST_DOG:
 			return {
 				...state,
 				user: {
 					...state.user,
 					dogs: [...state.user.dogs, action.payload],
+				},
+			};
+		case PUT_DOG:
+			return {
+				...state,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.map((dog) => {
+						if (dog.id === action.payload.id) {
+							return action.payload;
+						} else {
+							return dog;
+						}
+					}),
+				},
+			};
+		case REMOVE_DOG:
+			return {
+				...state,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.filter((dog) => dog.id !== action.payload),
 				},
 			};
 		case POST_IMAGE:
@@ -57,6 +103,15 @@ const myProfileReducer = (state = initialState, action) => {
 					image: action.payload,
 				},
 			};
+		case REMOVE_IMAGE:
+			return {
+				...state,
+				user: {
+					...state.user,
+					image: null,
+				},
+			};
+
 		case POST_IMAGE_DOG:
 			return {
 				...state,
@@ -67,6 +122,38 @@ const myProfileReducer = (state = initialState, action) => {
 							return {
 								...dog,
 								image: action.payload.response,
+							};
+						}
+						return { ...dog };
+					}),
+				},
+			};
+		case PUT_IMAGE_DOG:
+			return {
+				...state,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.map((dog) => {
+						if (dog.id === action.payload.dogId) {
+							return {
+								...dog,
+								image: action.payload.response,
+							};
+						}
+						return { ...dog };
+					}),
+				},
+			};
+		case REMOVE_IMAGE_DOG:
+			return {
+				...state,
+				user: {
+					...state.user,
+					dogs: state.user.dogs.map((dog) => {
+						if (dog.id === action.payload) {
+							return {
+								...dog,
+								image: null,
 							};
 						}
 						return { ...dog };

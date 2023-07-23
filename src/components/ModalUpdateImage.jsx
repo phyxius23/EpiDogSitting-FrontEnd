@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { postImageDogAction } from "../redux/actions";
+import { putImageDogAction } from "../redux/actions";
 import { toast } from "react-toastify";
 
-const ModalAddImage = ({ show, handleCloseModal, dog }) => {
+const ModalUpdateImage = ({ show, handleCloseModal, dog }) => {
 	const dispatch = useDispatch();
+	// const oldImage = useSelector ((state) => state.myProfile.user);
 	const [image, setImage] = useState("");
 
 	const sendImage = (e) => {
@@ -16,16 +17,18 @@ const ModalAddImage = ({ show, handleCloseModal, dog }) => {
 		const formData = new FormData();
 		formData.append("multipartFile", image);
 
-		dispatch(postImageDogAction(dog.id, toast, formData));
+		// console.log(dog.image.id);
+
+		dispatch(putImageDogAction(dog.id, dog.image.id, formData, toast));
 	};
 
 	return (
 		<>
-			{/* FORM ADD IMAGE */}
+			{/* FORM UPDATE IMAGE */}
 			<Modal show={show} onHide={handleCloseModal}>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						<h3>Aggiungi una foto di {dog.name}</h3>
+						<h3>Sostituisci la foto di {dog.name}</h3>
 					</Modal.Title>
 				</Modal.Header>
 				<Form className="rounded form-register" onSubmit={sendImage}>
@@ -47,4 +50,4 @@ const ModalAddImage = ({ show, handleCloseModal, dog }) => {
 		</>
 	);
 };
-export default ModalAddImage;
+export default ModalUpdateImage;

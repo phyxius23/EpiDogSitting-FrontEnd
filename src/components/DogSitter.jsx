@@ -20,11 +20,11 @@ const DogSitter = () => {
 	return (
 		<Container className="dogsitters">
 			<Row className="my-5 justify-content-center">
-				<Col xs={12} md={4} lg={3} className="dogsitters-list">
+				<Col xs={12} md={4} lg={3} className="dogsitters-list order-2 order-md-1">
 					<DogSitterList />
 				</Col>
 
-				<Col xs={12} md={8} lg={7}>
+				<Col xs={12} md={8} lg={7} className="order-1 order-md-2">
 					<DogSitterDetail />
 				</Col>
 

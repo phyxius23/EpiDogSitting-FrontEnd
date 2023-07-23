@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import MyProfile from "./components/MyProfile";
 import DogSitter from "./components/DogSitter";
 import { ToastContainer } from "react-toastify";
+import MyFooter from "./components/MyFooter";
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 					<Route path="/crea-account-proprietario" element={<RegisterDogOwner />} />
 					{/* <Route path="/diventa-dog-sitter" element={<RegisterDogSitter />} /> */}
 				</Routes>
+				<MyFooter />
 			</Container>
 		</BrowserRouter>
 	);

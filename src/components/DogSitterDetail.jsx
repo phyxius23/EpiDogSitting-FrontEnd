@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import imgUser from "../assets/images/imgUser.jpg";
+import bgDogsitter from "../assets/images/bg-dogsitter.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import ModalContactForm from "./ModalContactForm";
 import { useEffect, useState } from "react";
@@ -102,7 +103,7 @@ const DogSitterDetail = () => {
 	};
 
 	return (
-		<div className="mt-3 mb-4 mb-lg-0 dogsitter-selected">
+		<div className="mt-5 mb-4 mb-lg-0 dogsitter-selected">
 			{dogsitter ? (
 				<>
 					{/* FOTO, NOME, CITTÀ CAP */}
@@ -130,18 +131,26 @@ const DogSitterDetail = () => {
 						</Col>
 					</Row>
 
+					{/* MASONRY IMAGE */}
+					{/* <Row className="mt-4 masonry">
+						<Col>
+							<Card className="lead shadow border-0">
+								<Card.Body>
+									<ReactImageGallery />
+								</Card.Body>
+							</Card>
+						</Col>
+					</Row> */}
+
 					{/* DESCRIZIONE */}
 					<Row className="mt-4 description">
 						<Col>
 							<Card className="lead shadow border-0">
 								<Card.Body>
 									<Card.Title className="px-3">
-										<h4>Description:</h4>
+										<h4>Descrizione:</h4>
 									</Card.Title>
-									<Card.Text className="px-3">
-										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga consequuntur minima et quae tempora sequi assumenda officia. Ducimus dolores officiis voluptatem, magnam
-										maxime aut dolorem iure. Ea beatae sint repellat!
-									</Card.Text>
+									<Card.Text className="px-3">{dogsitter.description}</Card.Text>
 								</Card.Body>
 							</Card>
 						</Col>
@@ -191,9 +200,64 @@ const DogSitterDetail = () => {
 					</Row>
 				</>
 			) : (
-				<div>
-					<h3 className="display-6">Seleziona un DogSitter!</h3>
-				</div>
+				<>
+					<Row>
+						<Col xs={12}>
+							<h1 className="text-center mb-0">Seleziona un DogSitter!</h1>
+						</Col>
+					</Row>
+					<Row className="landing-intro justify-content-center">
+						<Col xs={12} md={11}>
+							<p className="mb-0">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde minima nihil ullam consequuntur cupiditate magni est saepe vero. Voluptatum dolores necessitatibus dicta quis
+								maiores consequuntur eos aliquid at quidem facere.
+							</p>
+						</Col>
+					</Row>
+					<Row className="landing-image justify-content-center">
+						<Col xs={12} md={11}>
+							<div className="shadow-lg">
+								<Image src={bgDogsitter} fluid />
+							</div>
+						</Col>
+					</Row>
+					<Row className="landing-service" xs={1} md={3}>
+						<Col className="mb-4">
+							<div className="landing-service__wrapper-icon">
+								<div className="shadow-lg">
+									<Image src={dogWalking} />
+								</div>
+							</div>
+							<h3 className="fw-normal mb-0 mt-3">Passeggiata</h3>
+						</Col>
+						<Col className="mb-4">
+							<div className="landing-service__wrapper-icon">
+								<div className="shadow-lg">
+									<Image src={dogTraining} />
+								</div>
+							</div>
+							<h3 className="fw-normal mb-0 mt-3">Asilo Diurno</h3>
+						</Col>
+						<Col className="mb-4">
+							<div className="landing-service__wrapper-icon">
+								<div className="shadow-lg">
+									<Image src={dogHouse} />
+								</div>
+							</div>
+							<h3 className="fw-normal mb-0 mt-3">Pernottamento</h3>
+						</Col>
+
+						{/* <Col>
+							<Image src={dogTraining} />
+						</Col>
+						<Col>
+							<Image src={dogHouse} />
+						</Col> */}
+					</Row>
+				</>
+				// <div>
+				// 	<h3 className="display-6">Seleziona un DogSitter!</h3>
+				// </div>
 			)}
 		</div>
 	);

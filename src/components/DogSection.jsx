@@ -12,7 +12,7 @@ const DogSection = ({ dogs }) => {
 	return (
 		<Row className="justify-content-center mt-5 dog">
 			<Col xs={12} lg={10}>
-				<h4 className="font-weight-bold mb-3">I tuoi animali domestici:</h4>
+				<h4 className="font-weight-bold mb-4">I tuoi animali domestici:</h4>
 				<Row xs={1} md={2} className="align-items-stretch g-4">
 					{/* DOGS LIST */}
 					{dogs.length > 0 && dogs.map((dog) => <DogCard key={dog.id} dog={dog} />)}

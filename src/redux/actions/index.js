@@ -12,9 +12,19 @@ export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
 export const FAVORITE_LOGOUT = "FAVORITE_LOGOUT";
 
 export const POST_ADDRESS = "POST_ADDRESS";
+export const PUT_ADDRESS = "PUT_ADDRESS";
+
 export const POST_DOG = "POST_DOG";
+export const PUT_DOG = "PUT_DOG";
+export const REMOVE_DOG = "REMOVE_DOG";
+
 export const POST_IMAGE = "POST_IMAGE";
+export const PUT_IMAGE = "PUT_IMAGE";
+export const REMOVE_IMAGE = "REMOVE_IMAGE";
+
 export const POST_IMAGE_DOG = "POST_IMAGE_DOG";
+export const PUT_IMAGE_DOG = "PUT_IMAGE_DOG";
+export const REMOVE_IMAGE_DOG = "REMOVE_IMAGE_DOG";
 
 export const SELECT_DOGSITTER = "SELECT_DOGSITTER";
 export const DOGSITTER_SELECTED_LOGOUT = "DOGSITTER_SELECTED_LOGOUT";
@@ -55,7 +65,7 @@ export const getUserLoggedAction = (toast) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Utente loggato", { autoClose: 1000 });
+				toast.success("Utente loggato");
 
 				dispatch({ type: GET_USER_LOGGED, payload: data });
 				dispatch({ type: GET_USER_LOADING_OFF });
@@ -91,14 +101,44 @@ export const postAddressAction = (userId, addressData, toast) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Indirizzo inserito", { autoClose: 1000 });
+				toast.success("Indirizzo inserito");
 
 				dispatch({ type: POST_ADDRESS, payload: data });
 			} else {
-				toast.error("Salvataggio non eseguito", { autoClose: 1000 });
+				toast.error("Salvataggio non eseguito");
 			}
 		} catch (error) {
-			toast.error(error.message, { autoClose: 1000 });
+			toast.error(error.message);
+		}
+	};
+};
+
+/* ***** UPDATE ADDRESS => DA TESTARE ***** */
+export const putAddressAction = (userId, addressId, addressData, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/api/dogowner/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + userId + "/address/" + addressId, {
+				method: "PUT",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(addressData),
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				toast.success("Indirizzo inserito");
+
+				dispatch({ type: PUT_ADDRESS, payload: data });
+			} else {
+				toast.error("Salvataggio non eseguito");
+			}
+		} catch (error) {
+			toast.error(error.message);
 		}
 	};
 };
@@ -133,6 +173,63 @@ export const postDogAction = (dogId, dogData, toast) => {
 	};
 };
 
+/* ***** UPDATE DOG => FUNZIONANTE ***** */
+export const updateDogAction = (dogownerId, dogId, dogData, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/api/dogowner/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogownerId + "/dog/" + dogId, {
+				method: "PUT",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(dogData),
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				toast.success("Animale salvato");
+
+				dispatch({ type: PUT_DOG, payload: data });
+			} else {
+				toast.error("Salvataggio non eseguito");
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
+};
+
+/* ***** REMOVE DOG ***** => FUNZIONANTE */
+export const removeDogAction = (dogId, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/dogs/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogId, {
+				method: "DELETE",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				toast.success("Animale cancellato");
+
+				dispatch({ type: REMOVE_DOG, payload: dogId });
+			} else {
+				toast.error("Cancellazione non riuscita");
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
+};
+
 /* ***** SAVE IMAGE PROFILE ***** => FUNZIONANTE */
 export const postImageProfileAction = (userId, imageData, toast) => {
 	const token = localStorage.getItem("token");
@@ -150,14 +247,40 @@ export const postImageProfileAction = (userId, imageData, toast) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Immagine salvata", { autoClose: 1000 });
+				toast.success("Immagine salvata");
 
 				dispatch({ type: POST_IMAGE, payload: data });
 			} else {
-				toast.error("Immagine non salvata", { autoClose: 1000 });
+				toast.error("Immagine non salvata");
 			}
 		} catch (error) {
-			toast.error(error.message, { autoClose: 1000 });
+			toast.error(error.message);
+		}
+	};
+};
+
+/* ***** REMOVE IMAGE PROFILE ***** => DA TESTARE */
+export const removeImageProfileAction = (imageId, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/image/delete/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + imageId, {
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				toast.success("Immagine profilo eliminata");
+
+				dispatch({ type: REMOVE_IMAGE });
+			} else {
+				toast.error("Immagine non eliminata");
+			}
+		} catch (error) {
+			toast.error(error.message);
 		}
 	};
 };
@@ -179,7 +302,7 @@ export const postImageDogAction = (dogId, toast, imageData) => {
 			if (resp.ok) {
 				let data = await resp.json();
 
-				toast.success("Immagine salvata", { autoClose: 1000 });
+				toast.success("Immagine salvata");
 
 				dispatch({
 					type: POST_IMAGE_DOG,
@@ -191,7 +314,66 @@ export const postImageDogAction = (dogId, toast, imageData) => {
 			}
 		} catch (error) {
 			// console.log(error);
-			toast.error("Salvataggio non eseguito", { autoClose: 1000 });
+			toast.error("Salvataggio non eseguito");
+		}
+	};
+};
+
+/* ***** UPDATE IMAGE DOG ***** => FUNZIONANTE */
+export const putImageDogAction = (dogId, imageId, imageData, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/image/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dogId + "/update/" + imageId + "/image/upload", {
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: imageData,
+			});
+			if (resp.ok) {
+				let data = await resp.json();
+
+				toast.success("Immagine aggiornata");
+
+				dispatch({
+					type: PUT_IMAGE_DOG,
+					payload: {
+						response: data,
+						dogId: dogId,
+					},
+				});
+			}
+		} catch (error) {
+			// console.log(error);
+			toast.error("Immagine non aggiornata");
+		}
+	};
+};
+
+/* ***** REMOVE IMAGE DOG ***** => FUNZIONANTE */
+export const removeImageDogAction = (dog, toast) => {
+	const token = localStorage.getItem("token");
+	const url = "http://localhost:5001/image/delete/";
+
+	return async (dispatch, getState) => {
+		try {
+			let resp = await fetch(url + dog.image.id, {
+				method: "DELETE",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (resp.ok) {
+				toast.success("Immagine eliminata");
+
+				dispatch({ type: REMOVE_IMAGE_DOG, payload: dog.id });
+			}
+		} catch (error) {
+			toast.error(error.message);
 		}
 	};
 };
