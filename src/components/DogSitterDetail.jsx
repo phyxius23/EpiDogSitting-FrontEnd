@@ -138,10 +138,7 @@ const DogSitterDetail = () => {
 									<Card.Title className="px-3">
 										<h4>Description:</h4>
 									</Card.Title>
-									<Card.Text className="px-3">
-										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga consequuntur minima et quae tempora sequi assumenda officia. Ducimus dolores officiis voluptatem, magnam
-										maxime aut dolorem iure. Ea beatae sint repellat!
-									</Card.Text>
+									<Card.Text className="px-3">{dogsitter.description}</Card.Text>
 								</Card.Body>
 							</Card>
 						</Col>
