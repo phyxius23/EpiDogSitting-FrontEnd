@@ -209,8 +209,8 @@ const DogSitterDetail = () => {
 					<Row className="landing-intro justify-content-center">
 						<Col xs={12} md={11}>
 							<p className="mb-0">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde minima nihil ullam consequuntur cupiditate magni est saepe vero. Voluptatum dolores necessitatibus dicta quis
-								maiores consequuntur eos aliquid at quidem facere.
+								Offriamo servizi di asilo diurno, pernottamento e piacevoli passeggiate, per assicurarci che i vostri amati compagni pelosi siano sempre felici e coccolati. La nostra missione
+								è quella di fornire un'esperienza sicura e confortevole per i vostri animali, permettendovi di avere la tranquillità di lasciarli tra le mani di professionisti dedicati.
 							</p>
 						</Col>
 					</Row>
